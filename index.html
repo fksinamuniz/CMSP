@@ -5,46 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Regimento Interativo do CMSP</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Estilos para a animação do acordeão */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Tailwind's slate-50 */
+        }
         .accordion-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1), opacity 0.3s ease-in-out;
-            opacity: 0;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
         }
         .accordion-content.open {
-            max-height: 2000px; /* Um valor alto para acomodar o conteúdo */
-            opacity: 1;
-            transition: max-height 1s cubic-bezier(1, 0, 1, 0), opacity 0.5s ease-in-out;
+            max-height: 3000px; /* Increased for safety */
+            transition: max-height 0.7s ease-in-out, padding 0.7s ease-in-out;
         }
         .chevron-icon {
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .chevron-icon.open {
             transform: rotate(180deg);
         }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="antialiased text-slate-800">
 
-    <div class="min-h-screen p-4 sm:p-8">
+    <div class="min-h-screen p-4 sm:p-6 md:p-8">
         <div class="max-w-4xl mx-auto">
-            <header class="text-center mb-8">
-                <h1 class="text-3xl sm:text-4xl font-bold text-slate-900">
-                    Regimento Interno do CMSP
+            <header class="text-center mb-10">
+                 <div class="inline-flex items-center justify-center bg-white border-2 border-slate-200 h-16 w-16 rounded-full mb-4 shadow-sm">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 2H20C20.5304 2 21.0391 2.21071 21.4142 2.58579C21.7893 2.96086 22 3.46957 22 4V28C22 28.5304 21.7893 29.0391 21.4142 29.4142C21.0391 29.7893 20.5304 30 20 30H6C5.46957 30 4.96086 29.7893 4.58579 29.4142C4.21071 29.0391 4 28.5304 4 28V4C4 3.46957 4.21071 2.96086 4.58579 2.58579C4.96086 2.21071 5.46957 2 6 2Z" fill="url(#paint0_linear_10_13)"/>
+                        <path d="M26 4H12C11.4696 4 10.9609 4.21071 10.5858 4.58579C10.2107 4.96086 10 5.46957 10 6V30C10 30.5304 10.2107 31.0391 10.5858 31.4142C10.9609 31.7893 11.4696 32 12 32H26C26.5304 32 27.0391 31.7893 27.4142 31.4142C27.7893 31.0391 28 30.5304 28 30V6C28 5.46957 27.7893 4.96086 27.4142 4.58579C27.0391 4.21071 26.5304 4 26 4Z" fill="url(#paint1_linear_10_13)"/>
+                        <defs>
+                        <linearGradient id="paint0_linear_10_13" x1="4" y1="16" x2="22" y2="16" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#A5B4FC"/>
+                        <stop offset="1" stop-color="#C7D2FE"/>
+                        </linearGradient>
+                        <linearGradient id="paint1_linear_10_13" x1="10" y1="18" x2="28" y2="18" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#38BDF8"/>
+                        <stop offset="1" stop-color="#7DD3FC"/>
+                        </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
+                    Regimento Interativo do CMSP
                 </h1>
-                <h2 class="text-md text-gray-500 mt-1">
-                    Visualização Interativa do Documento Aprovado em 01/07/2021
-                </h2>
+                <p class="text-slate-500 mt-2 max-w-2xl mx-auto">
+                    Uma exploração visual e detalhada do Regimento Interno e das legislações essenciais do Controle Social no SUS.
+                </p>
             </header>
     
-            <main id="accordion-container" class="bg-white rounded-lg shadow-md overflow-hidden">
+            <main id="accordion-container" class="bg-white rounded-xl shadow-md border border-slate-200/80 overflow-hidden">
                 <!-- O conteúdo do acordeão será injetado aqui pelo JavaScript -->
             </main>
             
-            <footer class="text-center mt-8 text-sm text-gray-400">
-                <p>Gerado como um arquivo HTML autônomo.</p>
+            <footer class="text-center mt-10 text-sm text-gray-500">
+                <p>Gerado como um arquivo HTML autônomo e interativo.</p>
             </footer>
         </div>
     </div>
@@ -54,16 +74,19 @@
             {
                 id: 'cap1',
                 title: 'Capítulo I - Constituição',
+                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 3H17.5C18.8807 3 20 4.11929 20 5.5V5.5C20 6.88071 18.8807 8 17.5 8H8V3Z" fill="#a78bfa"/><path d="M4 5.5C4 4.11929 5.11929 3 6.5 3H8V8H6.5C5.11929 8 4 6.88071 4 5.5V5.5Z" fill="#c4b5fd"/><path d="M4 18.5C4 19.8807 5.11929 21 6.5 21H8V16H6.5C5.11929 16 4 17.1193 4 18.5V18.5Z" fill="#c4b5fd"/><path d="M8 21H17.5C18.8807 21 20 19.8807 20 18.5V18.5C20 17.1193 18.8807 16 17.5 16H8V21Z" fill="#a78bfa"/><rect x="8" y="3" width="2" height="18" fill="#8b5cf6"/><rect x="4" y="8" width="16" height="8" rx="1" fill="#ddd6fe"/></svg>',
                 content: '<strong>Art. 1º</strong> – Estabelece as normas do CMSP, com base na Lei Municipal nº 2.914-A/1997 e na Lei nº 4.341/2007, além das Leis Federais 8.080/90 e 8.142/90.',
             },
             {
                 id: 'cap2',
                 title: 'Capítulo II - Definição e Objetivos',
+                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="#fca5a5"/><circle cx="12" cy="12" r="6" fill="#fecaca"/><circle cx="12" cy="12" r="2" fill="#ef4444"/></svg>',
                 content: '<strong>Art. 2º</strong> – Define o CMSP como órgão colegiado paritário e permanente. Suas funções são: consultiva, normativa, deliberativa, fiscalizadora e mobilizadora para o controle da política de saúde.',
             },
             {
                 id: 'cap3',
                 title: 'Capítulo III - Diretrizes Básicas',
+                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="4" rx="1" fill="#93c5fd"/><rect x="3" y="10" width="18" height="4" rx="1" fill="#93c5fd"/><rect x="3" y="16" width="18" height="4" rx="1" fill="#93c5fd"/><circle cx="5" cy="6" r="1" fill="#1e40af"/><circle cx="5" cy="12" r="1" fill="#1e40af"/><circle cx="5" cy="18" r="1" fill="#1e40af"/></svg>',
                 content: '<strong>Art. 3º</strong> – Diretrizes prioritárias para a atuação do conselho:',
                 details: [
                     'Garantir acesso universal e igualitário à saúde.',
@@ -76,303 +99,154 @@
             {
                 id: 'cap4',
                 title: 'Capítulo IV - Competências',
+                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#fcd34d"/></svg>',
                 content: '<strong>Art. 4º</strong> – O CMSP possui um vasto conjunto de competências para o controle da política de saúde. Explore as categorias abaixo para ver os detalhes:',
                 categorizedDetails: [
-                    {
-                        category: 'Planejamento e Gestão Estratégica',
-                        items: [
-                            'Estabelecer, fiscalizar e avaliar a política de saúde municipal.',
-                            'Definir diretrizes para o Plano Municipal de Saúde (PMS), PPA, e PAS.',
-                            'Aprovar o Relatório Anual de Gestão (RAG).',
-                            'Propor medidas para o aperfeiçoamento do SUS municipal.',
-                        ],
-                    },
-                    {
-                        category: 'Fiscalização Financeira e Orçamentária',
-                        items: [
-                            'Acompanhar a execução e destinação de recursos do Fundo Municipal de Saúde (FMS).',
-                            'Aprovar previamente propostas orçamentárias do FMS.',
-                            'Ter acesso integral a informações financeiras, contratos e convênios do SUS municipal.',
-                        ],
-                    },
-                    {
-                        category: 'Controle Social e Participação Popular',
-                        items: [
-                            'Garantir a participação da sociedade civil organizada.',
-                            'Analisar e responder a propostas e denúncias da população.',
-                            'Convocar e estruturar a Conferência Municipal de Saúde.',
-                            'Realizar audiências públicas para debater temas de saúde.',
-                        ],
-                    },
-                     {
-                        category: 'Serviços de Saúde e Recursos Humanos',
-                        items: [
-                            'Definir critérios para localização e tipo de unidades de saúde.',
-                            'Acompanhar e avaliar os serviços prestados por entidades públicas e privadas conveniadas.',
-                            'Fiscalizar a implantação de cursos na área de saúde.',
-                            'Propor políticas para a melhoria da formação dos trabalhadores da área.',
-                        ],
-                    },
+                    { category: 'Planejamento e Gestão Estratégica', items: ['Estabelecer, fiscalizar e avaliar a política de saúde municipal.','Definir diretrizes para o Plano Municipal de Saúde (PMS), PPA, e PAS.','Aprovar o Relatório Anual de Gestão (RAG).','Propor medidas para o aperfeiçoamento do SUS municipal.'] },
+                    { category: 'Fiscalização Financeira e Orçamentária', items: ['Acompanhar a execução e destinação de recursos do Fundo Municipal de Saúde (FMS).','Aprovar previamente propostas orçamentárias do FMS.','Ter acesso integral a informações financeiras, contratos e convênios do SUS municipal.'] },
+                    { category: 'Controle Social e Participação Popular', items: ['Garantir a participação da sociedade civil organizada.','Analisar e responder a propostas e denúncias da população.','Convocar e estruturar a Conferência Municipal de Saúde.','Realizar audiências públicas para debater temas de saúde.'] },
+                    { category: 'Serviços de Saúde e Recursos Humanos', items: ['Definir critérios para localização e tipo de unidades de saúde.','Acompanhar e avaliar os serviços prestados por entidades públicas e privadas conveniadas.','Fiscalizar a implantação de cursos na área de saúde.','Propor políticas para a melhoria da formação dos trabalhadores da área.'] },
                 ],
             },
             {
                 id: 'cap5',
                 title: 'Capítulo V - Composição',
+                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="7" r="4" fill="#60a5fa"/><path d="M17 21V19C17 16.7909 15.2091 15 13 15H5C2.79086 15 1 16.7909 1 19V21" fill="#93c5fd"/><path d="M23 21V19C23 16.8937 21.3211 15.203 19.2453 15.0195C19.7593 15.5623 20.122 16.2462 20.2913 17H21.5C22.3284 17 23 17.6716 23 18.5V21Z" fill="#93c5fd"/><path d="M16 3.13C17.7262 3.63934 19 5.16334 19 7C19 8.83666 17.7262 10.3607 16 10.87" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
                 content: '<strong>Art. 5º</strong> – O CMSP é composto por 16 membros titulares e seus suplentes, com a seguinte paridade:',
-                details: [
-                    '<strong>50% – Usuários do SUS.</strong>',
-                    '25% – Trabalhadores da saúde.',
-                    '25% – Representantes do governo e prestadores de serviços.',
-                ],
-                subDetails: [
-                    {
-                        title: 'Regras Importantes:',
-                        items: [
-                            '<strong>Indicação:</strong> Os membros são indicados de forma autônoma por suas entidades e homologados pelo Prefeito.',
-                            '<strong>Mandato:</strong> 2 anos, podendo ser prorrogado.',
-                            '<strong>Perda de Mandato:</strong> Ocorre por faltas (3 seguidas ou 4 alternadas) ou se a conduta do membro for declarada incompatível com a função.',
-                            '<strong>Voto:</strong> Cada membro tem direito a um voto, sem voto de qualidade do presidente.',
-                        ],
-                    },
-                ],
+                details: ['<strong>50% – Usuários do SUS.</strong>','25% – Trabalhadores da saúde.','25% – Representantes do governo e prestadores de serviços.'],
+                subDetails: [{ title: 'Regras Importantes:', items: ['<strong>Indicação:</strong> Os membros são indicados de forma autônoma por suas entidades e homologados pelo Prefeito.','<strong>Mandato:</strong> 2 anos, podendo ser prorrogado.','<strong>Perda de Mandato:</strong> Ocorre por faltas (3 seguidas ou 4 alternadas) ou se a conduta do membro for declarada incompatível com a função.','<strong>Voto:</strong> Cada membro tem direito a um voto, sem voto de qualidade do presidente.']}],
             },
             {
                 id: 'cap6',
                 title: 'Capítulo VI - Organização',
+                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="7" height="7" rx="1" fill="#f9a8d4"/><rect x="14" y="3" width="7" height="7" rx="1" fill="#f9a8d4"/><rect x="3" y="14" width="7" height="7" rx="1" fill="#f9a8d4"/><rect x="14" y="14" width="7" height="7" rx="1" fill="#f9a8d4"/><path d="M10 6.5H14" stroke="#db2777" stroke-width="2" stroke-linecap="round"/><path d="M6.5 10V14" stroke="#db2777" stroke-width="2" stroke-linecap="round"/><path d="M17.5 10V14" stroke="#db2777" stroke-width="2" stroke-linecap="round"/><path d="M10 17.5H14" stroke="#db2777" stroke-width="2" stroke-linecap="round"/></svg>',
                 content: '<strong>Art. 6º a 48</strong> – A estrutura do CMSP é desenhada para garantir a operacionalidade e a representatividade. Conheça cada instância:',
                 categorizedDetails: [
-                    {
-                        category: 'Plenário: O Coração do Conselho',
-                        items: [
-                            'É o fórum máximo de deliberações, com reuniões ordinárias e extraordinárias.',
-                            'Competência dos conselheiros: participar, discutir, votar, requerer informações e representar o conselho.',
-                        ],
-                    },
-                    {
-                        category: 'Mesa Diretora: A Liderança Executiva',
-                        items: [
-                            'Composta por Presidente, Vice-Presidente e Secretários, com mandato de 2 anos.',
-                            'Responsável por articular o funcionamento, preparar pautas e encaminhar as deliberações do Plenário.',
-                        ],
-                    },
-                    {
-                        category: 'Comissões Permanentes: O Trabalho Técnico de Assessoria',
-                        items: [
-                            '<strong>COAD (Administrativa - Art. 29):</strong> Analisar prestações de contas; emitir parecer sobre o Plano de Saúde e o Relatório de Gestão (RAG); apurar denúncias e irregularidades administrativas.',
-                            '<strong>COT (Técnica - Art. 31):</strong> Apurar "in loco" denúncias de falhas técnicas e operacionais nos serviços; realizar visitas periódicas à rede de saúde do SUS no município.',
-                            '<strong>COFIN (Orçamento e Finanças - Art. 33):</strong> Acompanhar processos de licitação da saúde; fiscalizar a execução orçamentária e financeira da Secretaria de Saúde; subsidiar o Plenário em discussões sobre o financiamento do SUS.',
-                            '<strong>Comunicação e Educação Permanente (Art. 35):</strong> Traçar a política de comunicação do conselho; promover a capacitação dos conselheiros; divulgar as ações e deliberações para a sociedade.',
-                        ],
-                    },
+                    { category: 'Plenário: O Coração do Conselho', items: ['É o fórum máximo de deliberações, com reuniões ordinárias e extraordinárias.','Competência dos conselheiros: participar, discutir, votar, requerer informações e representar o conselho.'] },
+                    { category: 'Mesa Diretora: A Liderança Executiva', items: ['Composta por Presidente, Vice-Presidente e Secretários, com mandato de 2 anos.','Responsável por articular o funcionamento, preparar pautas e encaminhar as deliberações do Plenário.'] },
+                    { category: 'Comissões Permanentes: O Trabalho Técnico', items: ['<strong>COAD (Administrativa):</strong> Analisar prestações de contas, RAG e apurar denúncias administrativas.','<strong>COT (Técnica):</strong> Apurar "in loco" denúncias de falhas técnicas e operacionais nos serviços.','<strong>COFIN (Orçamento e Finanças):</strong> Acompanhar licitações e a execução orçamentária da Secretaria de Saúde.','<strong>Comunicação e Educação Permanente:</strong> Traçar a política de comunicação e promover a capacitação dos conselheiros.'] },
                 ],
             },
             {
                 id: 'reunioes',
-                title: 'Funcionamento das Reuniões (Art. 17, 42 e 43)',
-                content: '<strong>Regras centrais para o funcionamento do Plenário:</strong>',
+                title: 'Funcionamento das Reuniões',
+                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="18" rx="2" fill="#bae6fd"/><path d="M3 10H21" stroke="#0369a1" stroke-width="2"/><path d="M8 2V6" stroke="#0369a1" stroke-width="2" stroke-linecap="round"/><path d="M16 2V6" stroke="#0369a1" stroke-width="2" stroke-linecap="round"/><circle cx="8.5" cy="13.5" r="1.5" fill="#0c4a6e"/><circle cx="15.5" cy="13.5" r="1.5" fill="#0c4a6e"/><circle cx="8.5" cy="18.5" r="1.5" fill="#0c4a6e"/></svg>',
+                content: '<strong>Art. 17, 42 e 43</strong> – Regras centrais para o funcionamento do Plenário:',
                 categorizedDetails: [
-                    {
-                        category: 'Frequência e Quórum',
-                        items: [
-                           '<strong>Frequência:</strong> Reuniões ordinárias mensais e extraordinárias quando necessário.',
-                           '<strong>Quórum de Início:</strong> Maioria simples dos membros (com 30 min de tolerância).',
-                           '<strong>Quórum de Deliberação:</strong> Voto de 50% + 1 de TODOS os membros (maioria absoluta).',
-                        ]
-                    },
-                    {
-                        category: 'Pauta e Convocação',
-                        items: [
-                            '<strong>Convocação:</strong> Pauta enviada com 72h de antecedência (ordinárias) ou 24h (extraordinárias).',
-                            '<strong>Estrutura da Pauta:</strong> 1) Ata, 2) Expediente (informes), 3) Ordem do Dia (deliberações).',
-                            '<strong>Publicidade:</strong> As reuniões são públicas e abertas a qualquer interessado.',
-                        ]
-                    },
-                     {
-                        category: 'Votação e Deliberações',
-                        items: [
-                            '<strong>Votação:</strong> Sempre aberta, por contagem de votos (a favor, contra, abstenção). Votação secreta é vedada.',
-                            '<strong>Tempo de Fala:</strong> Conselheiros têm tempo regimental para intervenções (geralmente 3 minutos).',
-                            '<strong>Deliberações:</strong> Formalizadas através de Resoluções, que devem ser homologadas pelo Prefeito ou Secretário de Saúde.',
-                        ]
-                    }
+                    { category: 'Frequência e Quórum', items: ['<strong>Frequência:</strong> Reuniões ordinárias mensais e extraordinárias quando necessário.','<strong>Quórum de Início:</strong> Maioria simples dos membros (com 30 min de tolerância).','<strong>Quórum de Deliberação:</strong> Voto de 50% + 1 de TODOS os membros (maioria absoluta).'] },
+                    { category: 'Pauta e Convocação', items: ['<strong>Convocação:</strong> Pauta enviada com 72h de antecedência (ordinárias) ou 24h (extraordinárias).','<strong>Estrutura da Pauta:</strong> 1) Ata, 2) Expediente (informes), 3) Ordem do Dia (deliberações).','<strong>Publicidade:</strong> As reuniões são públicas e abertas a qualquer interessado.'] },
+                    { category: 'Votação e Deliberações', items: ['<strong>Votação:</strong> Sempre aberta, por contagem de votos (a favor, contra, abstenção). Votação secreta é vedada.','<strong>Tempo de Fala:</strong> Conselheiros têm tempo regimental para intervenções (geralmente 3 minutos).','<strong>Deliberações:</strong> Formalizadas através de Resoluções, que devem ser homologadas pelo Prefeito ou Secretário de Saúde.'] }
                 ]
             },
             {
                 id: 'cap7',
                 title: 'Capítulo VII - Disposições Finais',
+                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="#a7f3d0"/><path d="M16.5 8.5L10.5 14.5L7.5 11.5" stroke="#047857" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
                 content: '<strong>Art. 49 a 53</strong> – Regras finais de funcionamento:',
-                details: [
-                    'Qualquer alteração neste Regimento exige proposta de 1/3 dos membros.',
-                    'A aprovação de mudanças requer um quórum qualificado de 2/3 dos conselheiros em reunião extraordinária.',
-                    'Servidores públicos que atuam no CMSP têm seus salários e vantagens garantidos por lei (Art. 51).',
-                    'Os casos não previstos no regimento (omissos) serão resolvidos pelo Plenário.',
-                ],
+                details: ['Qualquer alteração neste Regimento exige proposta de 1/3 dos membros.','A aprovação de mudanças requer um quórum qualificado de 2/3 dos conselheiros.','Servidores públicos que atuam no CMSP têm seus salários e vantagens garantidos por lei.','Os casos omissos serão resolvidos pelo Plenário.'],
             },
             {
                 id: 'lei8142',
                 title: 'Lei Federal nº 8.142/90',
+                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 21H20" stroke="#059669" stroke-width="2" stroke-linecap="round"/><path d="M6 17H7" stroke="#059669" stroke-width="2" stroke-linecap="round"/><path d="M17 17H18" stroke="#059669" stroke-width="2" stroke-linecap="round"/><path d="M11.5 17H12.5" stroke="#059669" stroke-width="2" stroke-linecap="round"/><path d="M3 10L12 3L21 10V17H3V10Z" fill="#6ee7b7"/></svg>',
                 content: 'Dispõe sobre a participação da comunidade na gestão do SUS e sobre as transferências de recursos financeiros. Conhecida como a <strong>Lei do Controle Social</strong>.',
                 categorizedDetails: [
-                    {
-                        category: 'Controle Social no SUS (Art. 1º)',
-                        items: [
-                            'O SUS contará, em cada esfera de governo, com as seguintes instâncias colegiadas:',
-                            '<strong>I - Conferência de Saúde:</strong> Reúne-se a cada 4 anos, com representação de vários segmentos sociais, para avaliar a situação da saúde e propor diretrizes para a formulação da política de saúde.',
-                            '<strong>II - Conselho de Saúde:</strong> Órgão permanente e deliberativo, que atua na formulação de estratégias e no controle da execução da política de saúde, inclusive nos aspectos econômicos e financeiros.',
-                        ],
-                    },
-                    {
-                        category: 'Transferência de Recursos (Art. 2º e 4º)',
-                        items: [
-                            'Para receber recursos do Fundo Nacional de Saúde, os entes federados (Estados, DF e Municípios) devem obrigatoriamente ter:',
-                            '<strong>1. Fundo de Saúde:</strong> Conta específica para os recursos da saúde.',
-                            '<strong>2. Conselho de Saúde:</strong> Com composição paritária, conforme a lei.',
-                            '<strong>3. Plano de Saúde:</strong> Documento com as metas e ações.',
-                            '<strong>4. Relatórios de Gestão:</strong> Para permitir o controle e a fiscalização.',
-                            '<strong>5. Contrapartida Financeira:</strong> Previsão de recursos próprios no orçamento.',
-                            '<strong>6. PCCS:</strong> Comissão para elaboração do Plano de Carreira, Cargos e Salários.',
-                            '<strong>Consequência Grave:</strong> O não atendimento desses requisitos implica na <strong>suspensão imediata</strong> das transferências de recursos federais.',
-                        ],
-                    },
-                     {
-                        category: 'Forma de Repasse (Art. 3º)',
-                        items: [
-                            'Os recursos devem ser repassados de forma <strong>regular, automática e fundo a fundo</strong>.',
-                            'É vedado (proibido) o uso desses recursos para pagamento de pessoal ativo ou inativo e para gratificações (exceto em situações de incentivo, como agentes de saúde).',
-                        ]
-                    }
+                    { category: 'Controle Social no SUS (Art. 1º)', items: ['O SUS contará, em cada esfera de governo, com:','<strong>I - Conferência de Saúde:</strong> Reúne-se a cada 4 anos para avaliar a situação da saúde e propor diretrizes.','<strong>II - Conselho de Saúde:</strong> Órgão permanente e deliberativo, que atua na formulação e controle da política de saúde.'] },
+                    { category: 'Condições para Receber Recursos (Art. 4º)', items: ['Para receber recursos federais, os municípios, estados e DF devem obrigatoriamente ter:','<strong>1. Fundo de Saúde</strong>','<strong>2. Conselho de Saúde (paritário)</strong>','<strong>3. Plano de Saúde</strong>','<strong>4. Relatórios de Gestão</strong>','<strong>5. Contrapartida Financeira</strong>','<strong>6. PCCS (Plano de Cargos e Salários)</strong>','<strong>Consequência Grave:</strong> O não atendimento implica na <strong>suspensão imediata</strong> dos repasses.'] },
+                    { category: 'Forma de Repasse (Art. 3º)', items: ['Os recursos devem ser repassados de forma <strong>regular, automática e fundo a fundo</strong>.','É vedado o uso desses recursos para pagamento de pessoal (salvo exceções específicas).'] }
                 ]
             },
             {
                 id: 'res453',
                 title: 'Resolução CNS nº 453/12',
+                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 4H19C19.5523 4 20 4.44772 20 5V20C20 20.5523 19.5523 21 19 21H9C8.44772 21 8 20.5523 8 20V5C8 4.44772 8.44772 4 9 4Z" fill="#fde68a"/><path d="M4 4H10V19H5C4.44772 19 4 18.5523 4 18V5C4 4.44772 4.44772 4 5 4H4Z" fill="#fcd34d"/><rect x="10" y="7" width="8" height="2" rx="1" fill="#ca8a04"/><rect x="10" y="11" width="8" height="2" rx="1" fill="#ca8a04"/><rect x="10" y="15" width="5" height="2" rx="1" fill="#ca8a04"/></svg>',
                 content: 'Aprova as diretrizes para instituição, reformulação, reestruturação e funcionamento dos Conselhos de Saúde em todo o Brasil.',
                 categorizedDetails: [
-                    {
-                        category: 'Diretriz 1: Definição do Conselho de Saúde',
-                        items: [
-                            'É uma instância colegiada, <strong>deliberativa e permanente</strong> do SUS em cada esfera de Governo.',
-                            'Atua na formulação de estratégias e no controle da execução das Políticas de Saúde, incluindo aspectos econômicos e financeiros.',
-                        ]
-                    },
-                    {
-                        category: 'Diretriz 3: Organização e Composição',
-                        items: [
-                           '<strong>Paridade:</strong> 50% de usuários; 25% de trabalhadores da saúde; 25% de governo e prestadores de serviços.',
-                           '<strong>Autonomia e Independência:</strong> Um representante não pode pertencer a mais de um segmento (ex: um gestor ou prestador não pode ser representante de usuários ou trabalhadores).',
-                           '<strong>Vedação:</strong> É proibida a participação de membros do Poder Legislativo, Judiciário e Ministério Público como conselheiros.',
-                           '<strong>Renovação:</strong> Recomenda-se a renovação de, no mínimo, 30% das entidades representativas a cada eleição para garantir novas perspectivas.',
-                           '<strong>Função Pública Relevante:</strong> A função de conselheiro não é remunerada, garante a dispensa do trabalho sem prejuízo e o conselheiro responde por seus atos conforme a legislação.',
-                        ]
-                    },
-                    {
-                        category: 'Diretriz 4: Estrutura e Funcionamento',
-                        items: [
-                           '<strong>Autonomia Financeira e Administrativa:</strong> As três esferas de Governo devem garantir dotação orçamentária, autonomia e infraestrutura para o pleno funcionamento do Conselho.',
-                           '<strong>Reuniões Abertas:</strong> Devem ser mensais, abertas ao público, em horários e locais que facilitem a participação social, com pauta enviada com 10 dias de antecedência.',
-                           '<strong>Homologação Obrigatória:</strong> As resoluções do conselho devem ser obrigatoriamente homologadas pelo chefe do poder (Prefeito, Governador, etc.) em até 30 dias. Se não o fizer, o conselho pode acionar o Ministério Público.',
-                           '<strong>Prestação de Contas Quadrimestral:</strong> O gestor do SUS (Secretário de Saúde) deve prestar contas detalhadas ao conselho a cada quatro meses.',
-                        ]
-                    },
-                    {
-                        category: 'Diretriz 5: Principais Competências',
-                        items: [
-                           'Atuar na formulação e no controle da execução da política de saúde.',
-                           'Aprovar a proposta orçamentária anual da saúde e o relatório de gestão.',
-                           'Fiscalizar e controlar gastos e a movimentação de recursos do Fundo de Saúde.',
-                           'Deliberar sobre contratos, consórcios e convênios.',
-                           'Convocar e organizar as Conferências de Saúde.',
-                           'Apoiar e promover a educação permanente para o controle social, capacitando seus membros e a comunidade.',
-                           'Divulgar suas ações para a sociedade e fortalecer a articulação com outros órgãos de controle.'
-                        ]
-                    }
+                    { category: 'Diretriz 3: Organização e Composição', items: ['<strong>Paridade:</strong> 50% de usuários; 25% de trabalhadores; 25% de governo/prestadores.','<strong>Autonomia e Independência:</strong> Um representante não pode pertencer a mais de um segmento.','<strong>Vedação:</strong> É proibida a participação de membros do Poder Legislativo, Judiciário e MP como conselheiros.','<strong>Renovação:</strong> Recomenda-se a renovação de, no mínimo, 30% das entidades a cada eleição.','<strong>Função Pública:</strong> Não é remunerada, garante dispensa do trabalho sem prejuízo.'] },
+                    { category: 'Diretriz 4: Estrutura e Funcionamento', items: ['<strong>Autonomia Financeira:</strong> Os governos devem garantir dotação orçamentária e infraestrutura para o Conselho.','<strong>Reuniões Abertas:</strong> Devem ser mensais, públicas, com pauta enviada com 10 dias de antecedência.','<strong>Homologação Obrigatória:</strong> Resoluções devem ser homologadas pelo gestor (ex: Prefeito) em até 30 dias. Se não o fizer, o conselho pode acionar o MP.','<strong>Prestação de Contas:</strong> O Secretário de Saúde deve prestar contas ao conselho a cada quatro meses.'] },
+                    { category: 'Diretriz 5: Principais Competências', items: ['Formular e controlar a execução da política de saúde.','Aprovar a proposta orçamentária anual e o relatório de gestão.','Fiscalizar gastos e a movimentação de recursos do Fundo de Saúde.','Deliberar sobre contratos e convênios.','Organizar as Conferências de Saúde.','Promover a educação permanente para o controle social.'] }
                 ]
             }
         ];
 
         function createAccordionItem(item, index, isSubItem = false) {
             const chevronIconSVG = `
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 chevron-icon ${isSubItem ? 'text-blue-600' : 'text-slate-600'}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 chevron-icon shrink-0 text-slate-500">
                     <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>`;
             
             const subItemIconSVG = `
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-blue-700">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-blue-600/80">
                     <polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline>
                 </svg>`;
 
             let contentHTML = '';
             if (item.content) {
-                contentHTML += `<p class="mb-4">${item.content}</p>`;
+                contentHTML += `<p class="mb-4 text-slate-600">${item.content}</p>`;
             }
             if (item.details) {
-                contentHTML += `<ul class="space-y-2 list-inside">
-                    ${item.details.map(detail => `<li class="flex items-start"><span class="text-blue-500 mr-2">✔</span><span>${detail}</span></li>`).join('')}
+                contentHTML += `<ul class="space-y-2.5">
+                    ${item.details.map(detail => `<li class="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-blue-500 mr-3 shrink-0"><path d="M20 6 9 17l-5-5"></path></svg><span class="text-slate-600">${detail}</span></li>`).join('')}
                 </ul>`;
             }
             if(item.categorizedDetails) {
-                 contentHTML += `<div class="space-y-2 mt-4">
+                 contentHTML += `<div class="space-y-3 mt-4">
                     ${item.categorizedDetails.map((cat, catIndex) => createAccordionItem({ ...cat, id: `${item.id}-cat-${catIndex}`, title: cat.category }, catIndex, true)).join('')}
                  </div>`
             }
             if (item.subDetails) {
                  contentHTML += item.subDetails.map(sub => `
-                    <div class="mt-4">
-                        <h4 class="font-semibold text-gray-800 mb-2">${sub.title}</h4>
-                        <ul class="space-y-2 list-inside pl-4">
-                            ${sub.items.map(subItem => `<li class="flex items-start"><span class="text-blue-400 mr-2">▪</span><span>${subItem}</span></li>`).join('')}
+                    <div class="mt-5">
+                        <h4 class="font-semibold text-slate-800 mb-2">${sub.title}</h4>
+                        <ul class="space-y-2.5 pl-2">
+                            ${sub.items.map(subItem => `<li class="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-slate-400 mr-3 shrink-0 mt-1"><circle cx="12" cy="12" r="10"></circle></svg><span class="text-slate-600">${subItem}</span></li>`).join('')}
                         </ul>
                     </div>
                  `).join('');
             }
-            if (item.items && isSubItem) { // For categorized details
-                contentHTML += `<ul class="space-y-2 list-inside text-sm">
-                    ${item.items.map(detail => `<li class="flex items-start"><span class="text-blue-400 mr-2">▪</span><span>${detail}</span></li>`).join('')}
+            if (item.items && isSubItem) {
+                contentHTML += `<ul class="space-y-2.5">
+                    ${item.items.map(detail => `<li class="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-slate-400 mr-3 shrink-0 mt-1"><path d="m9 18 6-6-6-6"></path></svg><span class="text-slate-600 text-sm">${detail}</span></li>`).join('')}
                 </ul>`;
             }
 
-            let buttonClasses = `w-full flex justify-between items-center text-left transition-colors duration-300`;
-            let titleClasses = ``;
-            let iconHTML = ``;
+            let buttonClasses = `w-full flex justify-between items-center text-left transition-all duration-300`;
+            let titleClasses = `text-lg font-semibold`;
+            let iconContainerClasses = `flex items-center justify-center w-10 h-10 rounded-lg mr-4 shrink-0`;
 
             if (isSubItem) {
-                buttonClasses += ' p-3 bg-blue-50 hover:bg-blue-100 rounded-md';
-                titleClasses = 'font-medium text-blue-800';
-                iconHTML = `<span class="mr-3">${subItemIconSVG}</span>`;
+                buttonClasses += ' p-3 hover:bg-slate-50 rounded-lg';
+                titleClasses = 'font-semibold text-slate-700';
+                iconContainerClasses = ''; // No background for sub-item icon
             } else {
                 buttonClasses += ' p-4';
-                titleClasses = 'text-lg font-semibold';
                 
                 if (item.id === 'lei8142') {
-                    buttonClasses += ' bg-emerald-50 hover:bg-emerald-100';
-                    titleClasses += ' text-emerald-900';
-                    iconHTML = `<span class="mr-3">⚖️</span>`;
+                    titleClasses += ' text-green-900';
                 } else if (item.id === 'res453') {
-                    buttonClasses += ' bg-amber-50 hover:bg-amber-100';
-                    titleClasses += ' text-amber-900';
-                    iconHTML = `<span class="mr-3">📜</span>`;
+                    titleClasses += ' text-yellow-900';
                 } else {
-                    buttonClasses += ' bg-slate-100 hover:bg-slate-200';
                     titleClasses += ' text-slate-800';
-                    iconHTML = `<span class="mr-3">📘</span>`;
                 }
             }
             
-            const contentContainerClasses = isSubItem ? 'p-3 pl-5 border-l-2 border-blue-200 ml-3' : 'p-5 bg-white';
+            const contentContainerClasses = isSubItem ? 'py-3 pl-6 border-l-2 border-slate-200 ml-4' : 'p-5 lg:p-6 bg-white';
             
             const initialOpen = index === 0 && !isSubItem;
 
             return `
-                <div class="${isSubItem ? 'mt-2' : 'border-b border-gray-200 last:border-b-0'}">
+                <div class="${isSubItem ? '' : 'border-b border-slate-200/80 last:border-b-0'}">
                     <button class="accordion-button ${buttonClasses}" data-target="#content-${item.id}">
                         <div class="flex items-center">
-                            ${iconHTML}
+                            <div class="${iconContainerClasses}">
+                                ${isSubItem ? subItemIconSVG : item.icon}
+                            </div>
                             <h3 class="${titleClasses}">${item.title}</h3>
                         </div>
                         ${chevronIconSVG}
                     </button>
                     <div id="content-${item.id}" class="accordion-content ${initialOpen ? 'open' : ''}">
-                        <div class="${contentContainerClasses} text-gray-700">
+                        <div class="${contentContainerClasses}">
                             ${contentHTML}
                         </div>
                     </div>
@@ -384,7 +258,6 @@
             const container = document.getElementById('accordion-container');
             container.innerHTML = regimentoData.map((item, index) => createAccordionItem(item, index)).join('');
             
-            // Set initial state for the first item's chevron
             const firstButton = container.querySelector('.accordion-button');
             if (firstButton) {
                 const firstChevron = firstButton.querySelector('.chevron-icon');
