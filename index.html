@@ -1,302 +1,306 @@
-import React, { useState, FC, ReactNode } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, ChevronsRight } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regimento Interativo do CMSP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos para a animação do acordeão */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1), opacity 0.3s ease-in-out;
+            opacity: 0;
+        }
+        .accordion-content.open {
+            max-height: 2000px; /* Um valor alto para acomodar o conteúdo */
+            opacity: 1;
+            transition: max-height 1s cubic-bezier(1, 0, 1, 0), opacity 0.5s ease-in-out;
+        }
+        .chevron-icon {
+            transition: transform 0.3s ease-in-out;
+        }
+        .chevron-icon.open {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
 
-// --- TIPOS DE DADOS ATUALIZADOS ---
-interface SubDetailCategory {
-  category: string;
-  items: string[];
-}
-
-interface RegimentoItem {
-  id: string;
-  title: string;
-  content?: string;
-  details?: string[];
-  subDetails?: { title: string; items: string[] }[];
-  categorizedDetails?: SubDetailCategory[]; // Novo campo para subfiltros
-}
-
-// --- DADOS DO REGIMENTO (MAIS DETALHADOS) ---
-const regimentoData: RegimentoItem[] = [
-    {
-        id: 'cap1',
-        title: 'Capítulo I - Constituição',
-        content: '<strong>Art. 1º</strong> – Estabelece as normas do CMSP, com base na Lei Municipal nº 2.914-A/1997 e na Lei nº 4.341/2007, além das Leis Federais 8.080/90 e 8.142/90.',
-    },
-    {
-        id: 'cap2',
-        title: 'Capítulo II - Definição e Objetivos',
-        content: '<strong>Art. 2º</strong> – Define o CMSP como órgão colegiado paritário e permanente. Suas funções são: consultiva, normativa, deliberativa, fiscalizadora e mobilizadora para o controle da política de saúde.',
-    },
-    {
-        id: 'cap3',
-        title: 'Capítulo III - Diretrizes Básicas',
-        content: '<strong>Art. 3º</strong> – Diretrizes prioritárias para a atuação do conselho:',
-        details: [
-            'Garantir acesso universal e igualitário à saúde.',
-            'Integrar, hierarquizar e regionalizar os serviços de saúde.',
-            'Promover a descentralização efetiva das ações.',
-            'Garantir a participação popular e a democratização das decisões.',
-            'Efetivar uma política de Recursos Humanos com concurso, PCCR e educação permanente.',
-        ],
-    },
-    {
-        id: 'cap4',
-        title: 'Capítulo IV - Competências',
-        content: '<strong>Art. 4º</strong> – O CMSP possui um vasto conjunto de competências para o controle da política de saúde. Explore as categorias abaixo para ver os detalhes:',
-        categorizedDetails: [
-            {
-                category: 'Planejamento e Gestão Estratégica',
-                items: [
-                    'Estabelecer, fiscalizar e avaliar a política de saúde municipal.',
-                    'Definir diretrizes para o Plano Municipal de Saúde (PMS), PPA, e PAS.',
-                    'Aprovar o Relatório Anual de Gestão (RAG).',
-                    'Propor medidas para o aperfeiçoamento do SUS municipal.',
-                ],
-            },
-            {
-                category: 'Fiscalização Financeira e Orçamentária',
-                items: [
-                    'Acompanhar a execução e destinação de recursos do Fundo Municipal de Saúde (FMS).',
-                    'Aprovar previamente propostas orçamentárias do FMS.',
-                    'Ter acesso integral a informações financeiras, contratos e convênios do SUS municipal.',
-                ],
-            },
-            {
-                category: 'Controle Social e Participação Popular',
-                items: [
-                    'Garantir a participação da sociedade civil organizada.',
-                    'Analisar e responder a propostas e denúncias da população.',
-                    'Convocar e estruturar a Conferência Municipal de Saúde.',
-                    'Realizar audiências públicas para debater temas de saúde.',
-                ],
-            },
-             {
-                category: 'Serviços de Saúde e Recursos Humanos',
-                items: [
-                    'Definir critérios para localização e tipo de unidades de saúde.',
-                    'Acompanhar e avaliar os serviços prestados por entidades públicas e privadas conveniadas.',
-                    'Fiscalizar a implantação de cursos na área de saúde.',
-                    'Propor políticas para a melhoria da formação dos trabalhadores da área.',
-                ],
-            },
-        ],
-    },
-    {
-        id: 'cap5',
-        title: 'Capítulo V - Composição',
-        content: '<strong>Art. 5º</strong> – O CMSP é composto por 16 membros titulares e seus suplentes, com a seguinte paridade:',
-        details: [
-            '<strong>50% – Usuários do SUS.</strong>',
-            '25% – Trabalhadores da saúde.',
-            '25% – Representantes do governo e prestadores de serviços.',
-        ],
-        subDetails: [
-            {
-                title: 'Regras Importantes:',
-                items: [
-                    '<strong>Indicação:</strong> Os membros são indicados de forma autônoma por suas entidades e homologados pelo Prefeito.',
-                    '<strong>Mandato:</strong> 2 anos, podendo ser prorrogado.',
-                    '<strong>Perda de Mandato:</strong> Ocorre por faltas (3 seguidas ou 4 alternadas) ou se a conduta do membro for declarada incompatível com a função.',
-                    '<strong>Voto:</strong> Cada membro tem direito a um voto, sem voto de qualidade do presidente.',
-                ],
-            },
-        ],
-    },
-    {
-        id: 'cap6',
-        title: 'Capítulo VI - Organização',
-        content: '<strong>Art. 6º a 48</strong> – A estrutura do CMSP é desenhada para garantir a operacionalidade e a representatividade. Conheça cada instância:',
-        categorizedDetails: [
-            {
-                category: 'Plenário: O Coração do Conselho',
-                items: [
-                    'É o fórum máximo de deliberações, com reuniões ordinárias e extraordinárias.',
-                    'Competência dos conselheiros: participar, discutir, votar, requerer informações e representar o conselho.',
-                ],
-            },
-            {
-                category: 'Mesa Diretora: A Liderança Executiva',
-                items: [
-                    'Composta por Presidente, Vice-Presidente e Secretários, com mandato de 2 anos.',
-                    'Responsável por articular o funcionamento, preparar pautas e encaminhar as deliberações do Plenário.',
-                ],
-            },
-            {
-                category: 'Comissões Permanentes: O Trabalho Técnico de Assessoria',
-                items: [
-                    '<strong>COAD (Administrativa - Art. 29):</strong> Analisar prestações de contas; emitir parecer sobre o Plano de Saúde e o Relatório de Gestão (RAG); apurar denúncias e irregularidades administrativas.',
-                    '<strong>COT (Técnica - Art. 31):</strong> Apurar "in loco" denúncias de falhas técnicas e operacionais nos serviços; realizar visitas periódicas à rede de saúde do SUS no município.',
-                    '<strong>COFIN (Orçamento e Finanças - Art. 33):</strong> Acompanhar processos de licitação da saúde; fiscalizar a execução orçamentária e financeira da Secretaria de Saúde; subsidiar o Plenário em discussões sobre o financiamento do SUS.',
-                    '<strong>Comunicação e Educação Permanente (Art. 35):</strong> Traçar a política de comunicação do conselho; promover a capacitação dos conselheiros; divulgar as ações e deliberações para a sociedade.',
-                ],
-            },
-        ],
-    },
-    {
-        id: 'reunioes',
-        title: 'Funcionamento das Reuniões (Art. 17, 42 e 43)',
-        content: '<strong>Regras centrais para o funcionamento do Plenário:</strong>',
-        categorizedDetails: [
-            {
-                category: 'Frequência e Quórum',
-                items: [
-                   '<strong>Frequência:</strong> Reuniões ordinárias mensais e extraordinárias quando necessário.',
-                   '<strong>Quórum de Início:</strong> Maioria simples dos membros (com 30 min de tolerância).',
-                   '<strong>Quórum de Deliberação:</strong> Voto de 50% + 1 de TODOS os membros (maioria absoluta).',
-                ]
-            },
-            {
-                category: 'Pauta e Convocação',
-                items: [
-                    '<strong>Convocação:</strong> Pauta enviada com 72h de antecedência (ordinárias) ou 24h (extraordinárias).',
-                    '<strong>Estrutura da Pauta:</strong> 1) Ata, 2) Expediente (informes), 3) Ordem do Dia (deliberações).',
-                    '<strong>Publicidade:</strong> As reuniões são públicas e abertas a qualquer interessado.',
-                ]
-            },
-             {
-                category: 'Votação e Deliberações',
-                items: [
-                    '<strong>Votação:</strong> Sempre aberta, por contagem de votos (a favor, contra, abstenção). Votação secreta é vedada.',
-                    '<strong>Tempo de Fala:</strong> Conselheiros têm tempo regimental para intervenções (geralmente 3 minutos).',
-                    '<strong>Deliberações:</strong> Formalizadas através de Resoluções, que devem ser homologadas pelo Prefeito ou Secretário de Saúde.',
-                ]
-            }
-        ]
-    },
-    {
-        id: 'cap7',
-        title: 'Capítulo VII - Disposições Finais',
-        content: '<strong>Art. 49 a 53</strong> – Regras finais de funcionamento:',
-        details: [
-            'Qualquer alteração neste Regimento exige proposta de 1/3 dos membros.',
-            'A aprovação de mudanças requer um quórum qualificado de 2/3 dos conselheiros em reunião extraordinária.',
-            'Servidores públicos que atuam no CMSP têm seus salários e vantagens garantidos por lei (Art. 51).',
-            'Os casos não previstos no regimento (omissos) serão resolvidos pelo Plenário.',
-        ],
-    },
-];
-
-// --- COMPONENTE REUTILIZÁVEL PARA ITENS DE ACORDEÃO ---
-const AccordionItem: FC<{ title: string; children: ReactNode; icon?: ReactNode; isSubItem?: boolean; initiallyOpen?: boolean }> = 
-({ title, children, icon, isSubItem = false, initiallyOpen = false }) => {
-  const [isOpen, setIsOpen] = useState(initiallyOpen);
-
-  return (
-    <div className={isSubItem ? 'mt-2' : 'border-b border-gray-200 last:border-b-0'}>
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`w-full flex justify-between items-center text-left transition-colors duration-300 ${
-          isSubItem 
-            ? 'p-3 bg-blue-50 hover:bg-blue-100 rounded-md' 
-            : 'p-4 bg-slate-100 hover:bg-slate-200'
-        }`}
-      >
-        <div className="flex items-center">
-          {icon && <span className="mr-3">{icon}</span>}
-          <h3 className={isSubItem ? 'font-medium text-blue-800' : 'text-lg font-semibold text-slate-800'}>
-            {title}
-          </h3>
+    <div class="min-h-screen p-4 sm:p-8">
+        <div class="max-w-4xl mx-auto">
+            <header class="text-center mb-8">
+                <h1 class="text-3xl sm:text-4xl font-bold text-slate-900">
+                    Regimento Interno do CMSP
+                </h1>
+                <h2 class="text-md text-gray-500 mt-1">
+                    Visualização Interativa do Documento Aprovado em 01/07/2021
+                </h2>
+            </header>
+    
+            <main id="accordion-container" class="bg-white rounded-lg shadow-md overflow-hidden">
+                <!-- O conteúdo do acordeão será injetado aqui pelo JavaScript -->
+            </main>
+            
+            <footer class="text-center mt-8 text-sm text-gray-400">
+                <p>Gerado como um arquivo HTML autônomo.</p>
+            </footer>
         </div>
-        <motion.div
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <ChevronDown className={`w-5 h-5 ${isSubItem ? 'text-blue-600' : 'text-slate-600'}`} />
-        </motion.div>
-      </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="overflow-hidden"
-          >
-            <div className={isSubItem ? 'p-3 pl-5 border-l-2 border-blue-200 ml-3' : 'p-5 bg-white'}>
-              {children}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
-  );
-};
 
+    <script>
+        const regimentoData = [
+            {
+                id: 'cap1',
+                title: 'Capítulo I - Constituição',
+                content: '<strong>Art. 1º</strong> – Estabelece as normas do CMSP, com base na Lei Municipal nº 2.914-A/1997 e na Lei nº 4.341/2007, além das Leis Federais 8.080/90 e 8.142/90.',
+            },
+            {
+                id: 'cap2',
+                title: 'Capítulo II - Definição e Objetivos',
+                content: '<strong>Art. 2º</strong> – Define o CMSP como órgão colegiado paritário e permanente. Suas funções são: consultiva, normativa, deliberativa, fiscalizadora e mobilizadora para o controle da política de saúde.',
+            },
+            {
+                id: 'cap3',
+                title: 'Capítulo III - Diretrizes Básicas',
+                content: '<strong>Art. 3º</strong> – Diretrizes prioritárias para a atuação do conselho:',
+                details: [
+                    'Garantir acesso universal e igualitário à saúde.',
+                    'Integrar, hierarquizar e regionalizar os serviços de saúde.',
+                    'Promover a descentralização efetiva das ações.',
+                    'Garantir a participação popular e a democratização das decisões.',
+                    'Efetivar uma política de Recursos Humanos com concurso, PCCR e educação permanente.',
+                ],
+            },
+            {
+                id: 'cap4',
+                title: 'Capítulo IV - Competências',
+                content: '<strong>Art. 4º</strong> – O CMSP possui um vasto conjunto de competências para o controle da política de saúde. Explore as categorias abaixo para ver os detalhes:',
+                categorizedDetails: [
+                    {
+                        category: 'Planejamento e Gestão Estratégica',
+                        items: [
+                            'Estabelecer, fiscalizar e avaliar a política de saúde municipal.',
+                            'Definir diretrizes para o Plano Municipal de Saúde (PMS), PPA, e PAS.',
+                            'Aprovar o Relatório Anual de Gestão (RAG).',
+                            'Propor medidas para o aperfeiçoamento do SUS municipal.',
+                        ],
+                    },
+                    {
+                        category: 'Fiscalização Financeira e Orçamentária',
+                        items: [
+                            'Acompanhar a execução e destinação de recursos do Fundo Municipal de Saúde (FMS).',
+                            'Aprovar previamente propostas orçamentárias do FMS.',
+                            'Ter acesso integral a informações financeiras, contratos e convênios do SUS municipal.',
+                        ],
+                    },
+                    {
+                        category: 'Controle Social e Participação Popular',
+                        items: [
+                            'Garantir a participação da sociedade civil organizada.',
+                            'Analisar e responder a propostas e denúncias da população.',
+                            'Convocar e estruturar a Conferência Municipal de Saúde.',
+                            'Realizar audiências públicas para debater temas de saúde.',
+                        ],
+                    },
+                     {
+                        category: 'Serviços de Saúde e Recursos Humanos',
+                        items: [
+                            'Definir critérios para localização e tipo de unidades de saúde.',
+                            'Acompanhar e avaliar os serviços prestados por entidades públicas e privadas conveniadas.',
+                            'Fiscalizar a implantação de cursos na área de saúde.',
+                            'Propor políticas para a melhoria da formação dos trabalhadores da área.',
+                        ],
+                    },
+                ],
+            },
+            {
+                id: 'cap5',
+                title: 'Capítulo V - Composição',
+                content: '<strong>Art. 5º</strong> – O CMSP é composto por 16 membros titulares e seus suplentes, com a seguinte paridade:',
+                details: [
+                    '<strong>50% – Usuários do SUS.</strong>',
+                    '25% – Trabalhadores da saúde.',
+                    '25% – Representantes do governo e prestadores de serviços.',
+                ],
+                subDetails: [
+                    {
+                        title: 'Regras Importantes:',
+                        items: [
+                            '<strong>Indicação:</strong> Os membros são indicados de forma autônoma por suas entidades e homologados pelo Prefeito.',
+                            '<strong>Mandato:</strong> 2 anos, podendo ser prorrogado.',
+                            '<strong>Perda de Mandato:</strong> Ocorre por faltas (3 seguidas ou 4 alternadas) ou se a conduta do membro for declarada incompatível com a função.',
+                            '<strong>Voto:</strong> Cada membro tem direito a um voto, sem voto de qualidade do presidente.',
+                        ],
+                    },
+                ],
+            },
+            {
+                id: 'cap6',
+                title: 'Capítulo VI - Organização',
+                content: '<strong>Art. 6º a 48</strong> – A estrutura do CMSP é desenhada para garantir a operacionalidade e a representatividade. Conheça cada instância:',
+                categorizedDetails: [
+                    {
+                        category: 'Plenário: O Coração do Conselho',
+                        items: [
+                            'É o fórum máximo de deliberações, com reuniões ordinárias e extraordinárias.',
+                            'Competência dos conselheiros: participar, discutir, votar, requerer informações e representar o conselho.',
+                        ],
+                    },
+                    {
+                        category: 'Mesa Diretora: A Liderança Executiva',
+                        items: [
+                            'Composta por Presidente, Vice-Presidente e Secretários, com mandato de 2 anos.',
+                            'Responsável por articular o funcionamento, preparar pautas e encaminhar as deliberações do Plenário.',
+                        ],
+                    },
+                    {
+                        category: 'Comissões Permanentes: O Trabalho Técnico de Assessoria',
+                        items: [
+                            '<strong>COAD (Administrativa - Art. 29):</strong> Analisar prestações de contas; emitir parecer sobre o Plano de Saúde e o Relatório de Gestão (RAG); apurar denúncias e irregularidades administrativas.',
+                            '<strong>COT (Técnica - Art. 31):</strong> Apurar "in loco" denúncias de falhas técnicas e operacionais nos serviços; realizar visitas periódicas à rede de saúde do SUS no município.',
+                            '<strong>COFIN (Orçamento e Finanças - Art. 33):</strong> Acompanhar processos de licitação da saúde; fiscalizar a execução orçamentária e financeira da Secretaria de Saúde; subsidiar o Plenário em discussões sobre o financiamento do SUS.',
+                            '<strong>Comunicação e Educação Permanente (Art. 35):</strong> Traçar a política de comunicação do conselho; promover a capacitação dos conselheiros; divulgar as ações e deliberações para a sociedade.',
+                        ],
+                    },
+                ],
+            },
+            {
+                id: 'reunioes',
+                title: 'Funcionamento das Reuniões (Art. 17, 42 e 43)',
+                content: '<strong>Regras centrais para o funcionamento do Plenário:</strong>',
+                categorizedDetails: [
+                    {
+                        category: 'Frequência e Quórum',
+                        items: [
+                           '<strong>Frequência:</strong> Reuniões ordinárias mensais e extraordinárias quando necessário.',
+                           '<strong>Quórum de Início:</strong> Maioria simples dos membros (com 30 min de tolerância).',
+                           '<strong>Quórum de Deliberação:</strong> Voto de 50% + 1 de TODOS os membros (maioria absoluta).',
+                        ]
+                    },
+                    {
+                        category: 'Pauta e Convocação',
+                        items: [
+                            '<strong>Convocação:</strong> Pauta enviada com 72h de antecedência (ordinárias) ou 24h (extraordinárias).',
+                            '<strong>Estrutura da Pauta:</strong> 1) Ata, 2) Expediente (informes), 3) Ordem do Dia (deliberações).',
+                            '<strong>Publicidade:</strong> As reuniões são públicas e abertas a qualquer interessado.',
+                        ]
+                    },
+                     {
+                        category: 'Votação e Deliberações',
+                        items: [
+                            '<strong>Votação:</strong> Sempre aberta, por contagem de votos (a favor, contra, abstenção). Votação secreta é vedada.',
+                            '<strong>Tempo de Fala:</strong> Conselheiros têm tempo regimental para intervenções (geralmente 3 minutos).',
+                            '<strong>Deliberações:</strong> Formalizadas através de Resoluções, que devem ser homologadas pelo Prefeito ou Secretário de Saúde.',
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'cap7',
+                title: 'Capítulo VII - Disposições Finais',
+                content: '<strong>Art. 49 a 53</strong> – Regras finais de funcionamento:',
+                details: [
+                    'Qualquer alteração neste Regimento exige proposta de 1/3 dos membros.',
+                    'A aprovação de mudanças requer um quórum qualificado de 2/3 dos conselheiros em reunião extraordinária.',
+                    'Servidores públicos que atuam no CMSP têm seus salários e vantagens garantidos por lei (Art. 51).',
+                    'Os casos não previstos no regimento (omissos) serão resolvidos pelo Plenário.',
+                ],
+            },
+        ];
 
-// --- COMPONENTE PRINCIPAL DA APLICAÇÃO ---
-export default function App() {
-  return (
-    <div className="bg-gray-50 min-h-screen p-4 sm:p-8">
-      <div className="max-w-4xl mx-auto">
-        <header className="text-center mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900">
-            Regimento Interno do CMSP
-          </h1>
-          <h2 className="text-md text-gray-500 mt-1">
-            Visualização Interativa do Documento Aprovado em 01/07/2021
-          </h2>
-        </header>
+        function createAccordionItem(item, index, isSubItem = false) {
+            const chevronIconSVG = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 chevron-icon ${isSubItem ? 'text-blue-600' : 'text-slate-600'}">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>`;
+            
+            const subItemIconSVG = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-blue-700">
+                    <polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline>
+                </svg>`;
 
-        <main className="bg-white rounded-lg shadow-md overflow-hidden">
-          {regimentoData.map((item, index) => (
-             <AccordionItem key={item.id} title={item.title} icon={<span>📘</span>} initiallyOpen={index === 0}>
-                <div className="text-gray-700">
-                    {item.content && <p className="mb-4" dangerouslySetInnerHTML={{ __html: item.content }} />}
-                    
-                    {item.details && (
-                        <ul className="space-y-2 list-inside">
-                        {item.details.map((detail, idx) => (
-                            <li key={idx} className="flex items-start">
-                            <span className="text-blue-500 mr-2">✔</span>
-                            <span dangerouslySetInnerHTML={{ __html: detail }} />
-                            </li>
-                        ))}
+            let contentHTML = '';
+            if (item.content) {
+                contentHTML += `<p class="mb-4">${item.content}</p>`;
+            }
+            if (item.details) {
+                contentHTML += `<ul class="space-y-2 list-inside">
+                    ${item.details.map(detail => `<li class="flex items-start"><span class="text-blue-500 mr-2">✔</span><span>${detail}</span></li>`).join('')}
+                </ul>`;
+            }
+            if(item.categorizedDetails) {
+                 contentHTML += `<div class="space-y-2 mt-4">
+                    ${item.categorizedDetails.map((cat, catIndex) => createAccordionItem({ ...cat, id: `${item.id}-cat-${catIndex}`, title: cat.category }, catIndex, true)).join('')}
+                 </div>`
+            }
+            if (item.subDetails) {
+                 contentHTML += item.subDetails.map(sub => `
+                    <div class="mt-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">${sub.title}</h4>
+                        <ul class="space-y-2 list-inside pl-4">
+                            ${sub.items.map(subItem => `<li class="flex items-start"><span class="text-blue-400 mr-2">▪</span><span>${subItem}</span></li>`).join('')}
                         </ul>
-                    )}
+                    </div>
+                 `).join('');
+            }
+            if (item.items && isSubItem) { // For categorized details
+                contentHTML += `<ul class="space-y-2 list-inside text-sm">
+                    ${item.items.map(detail => `<li class="flex items-start"><span class="text-blue-400 mr-2">▪</span><span>${detail}</span></li>`).join('')}
+                </ul>`;
+            }
 
-                    {item.categorizedDetails && (
-                        <div className="space-y-2 mt-4">
-                            {item.categorizedDetails.map((categoryItem) => (
-                                <AccordionItem key={categoryItem.category} title={categoryItem.category} icon={<ChevronsRight className="w-4 h-4 text-blue-700" />} isSubItem>
-                                     <ul className="space-y-2 list-inside text-sm">
-                                        {categoryItem.items.map((detail, idx) => (
-                                            <li key={idx} className="flex items-start">
-                                            <span className="text-blue-400 mr-2">▪</span>
-                                            <span dangerouslySetInnerHTML={{ __html: detail }} />
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </AccordionItem>
-                            ))}
-                        </div>
-                    )}
+            const buttonClasses = `w-full flex justify-between items-center text-left transition-colors duration-300 ${isSubItem ? 'p-3 bg-blue-50 hover:bg-blue-100 rounded-md' : 'p-4 bg-slate-100 hover:bg-slate-200'}`;
+            const titleClasses = isSubItem ? 'font-medium text-blue-800' : 'text-lg font-semibold text-slate-800';
+            const iconHTML = isSubItem ? `<span class="mr-3">${subItemIconSVG}</span>` : `<span class="mr-3">📘</span>`;
+            const contentContainerClasses = isSubItem ? 'p-3 pl-5 border-l-2 border-blue-200 ml-3' : 'p-5 bg-white';
+            
+            const initialOpen = index === 0 && !isSubItem;
 
-                    {item.subDetails && item.subDetails.map((sub, subIndex) => (
-                        <div key={subIndex} className="mt-4">
-                        <h4 className="font-semibold text-gray-800 mb-2">{sub.title}</h4>
-                        <ul className="space-y-2 list-inside pl-4">
-                            {sub.items.map((subItem, itemIndex) => (
-                            <li key={itemIndex} className="flex items-start">
-                                <span className="text-blue-400 mr-2">▪</span>
-                                <span dangerouslySetInnerHTML={{ __html: subItem }} />
-                            </li>
-                            ))}
-                        </ul>
+            return `
+                <div class="${isSubItem ? 'mt-2' : 'border-b border-gray-200 last:border-b-0'}">
+                    <button class="accordion-button ${buttonClasses}" data-target="#content-${item.id}">
+                        <div class="flex items-center">
+                            ${iconHTML}
+                            <h3 class="${titleClasses}">${item.title}</h3>
                         </div>
-                    ))}
+                        ${chevronIconSVG}
+                    </button>
+                    <div id="content-${item.id}" class="accordion-content ${initialOpen ? 'open' : ''}">
+                        <div class="${contentContainerClasses} text-gray-700">
+                            ${contentHTML}
+                        </div>
+                    </div>
                 </div>
-             </AccordionItem>
-          ))}
-        </main>
-        
-        <footer className="text-center mt-8 text-sm text-gray-400">
-            <p>Desenvolvido com React, TypeScript e Tailwind CSS.</p>
-        </footer>
-      </div>
-    </div>
-  );
-}
+            `;
+        }
 
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('accordion-container');
+            container.innerHTML = regimentoData.map((item, index) => createAccordionItem(item, index)).join('');
+            
+            // Set initial state for the first item's chevron
+            const firstButton = container.querySelector('.accordion-button');
+            if (firstButton) {
+                const firstChevron = firstButton.querySelector('.chevron-icon');
+                if (firstChevron) firstChevron.classList.add('open');
+            }
+
+            container.addEventListener('click', function(event) {
+                const button = event.target.closest('.accordion-button');
+                if (button) {
+                    const content = document.querySelector(button.dataset.target);
+                    const chevron = button.querySelector('.chevron-icon');
+                    
+                    if (content) {
+                        content.classList.toggle('open');
+                        chevron.classList.toggle('open');
+                    }
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
