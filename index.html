@@ -208,6 +208,86 @@
                     'Os casos não previstos no regimento (omissos) serão resolvidos pelo Plenário.',
                 ],
             },
+            {
+                id: 'lei8142',
+                title: 'Lei Federal nº 8.142/90',
+                content: 'Dispõe sobre a participação da comunidade na gestão do SUS e sobre as transferências de recursos financeiros. Conhecida como a <strong>Lei do Controle Social</strong>.',
+                categorizedDetails: [
+                    {
+                        category: 'Controle Social no SUS (Art. 1º)',
+                        items: [
+                            'O SUS contará, em cada esfera de governo, com as seguintes instâncias colegiadas:',
+                            '<strong>I - Conferência de Saúde:</strong> Reúne-se a cada 4 anos, com representação de vários segmentos sociais, para avaliar a situação da saúde e propor diretrizes para a formulação da política de saúde.',
+                            '<strong>II - Conselho de Saúde:</strong> Órgão permanente e deliberativo, que atua na formulação de estratégias e no controle da execução da política de saúde, inclusive nos aspectos econômicos e financeiros.',
+                        ],
+                    },
+                    {
+                        category: 'Transferência de Recursos (Art. 2º e 4º)',
+                        items: [
+                            'Para receber recursos do Fundo Nacional de Saúde, os entes federados (Estados, DF e Municípios) devem obrigatoriamente ter:',
+                            '<strong>1. Fundo de Saúde:</strong> Conta específica para os recursos da saúde.',
+                            '<strong>2. Conselho de Saúde:</strong> Com composição paritária, conforme a lei.',
+                            '<strong>3. Plano de Saúde:</strong> Documento com as metas e ações.',
+                            '<strong>4. Relatórios de Gestão:</strong> Para permitir o controle e a fiscalização.',
+                            '<strong>5. Contrapartida Financeira:</strong> Previsão de recursos próprios no orçamento.',
+                            '<strong>6. PCCS:</strong> Comissão para elaboração do Plano de Carreira, Cargos e Salários.',
+                            '<strong>Consequência Grave:</strong> O não atendimento desses requisitos implica na <strong>suspensão imediata</strong> das transferências de recursos federais.',
+                        ],
+                    },
+                     {
+                        category: 'Forma de Repasse (Art. 3º)',
+                        items: [
+                            'Os recursos devem ser repassados de forma <strong>regular, automática e fundo a fundo</strong>.',
+                            'É vedado (proibido) o uso desses recursos para pagamento de pessoal ativo ou inativo e para gratificações (exceto em situações de incentivo, como agentes de saúde).',
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'res453',
+                title: 'Resolução CNS nº 453/12',
+                content: 'Aprova as diretrizes para instituição, reformulação, reestruturação e funcionamento dos Conselhos de Saúde em todo o Brasil.',
+                categorizedDetails: [
+                    {
+                        category: 'Diretriz 1: Definição do Conselho de Saúde',
+                        items: [
+                            'É uma instância colegiada, <strong>deliberativa e permanente</strong> do SUS em cada esfera de Governo.',
+                            'Atua na formulação de estratégias e no controle da execução das Políticas de Saúde, incluindo aspectos econômicos e financeiros.',
+                        ]
+                    },
+                    {
+                        category: 'Diretriz 3: Organização e Composição',
+                        items: [
+                           '<strong>Paridade:</strong> 50% de usuários; 25% de trabalhadores da saúde; 25% de governo e prestadores de serviços.',
+                           '<strong>Autonomia e Independência:</strong> Um representante não pode pertencer a mais de um segmento (ex: um gestor ou prestador não pode ser representante de usuários ou trabalhadores).',
+                           '<strong>Vedação:</strong> É proibida a participação de membros do Poder Legislativo, Judiciário e Ministério Público como conselheiros.',
+                           '<strong>Renovação:</strong> Recomenda-se a renovação de, no mínimo, 30% das entidades representativas a cada eleição para garantir novas perspectivas.',
+                           '<strong>Função Pública Relevante:</strong> A função de conselheiro não é remunerada, garante a dispensa do trabalho sem prejuízo e o conselheiro responde por seus atos conforme a legislação.',
+                        ]
+                    },
+                    {
+                        category: 'Diretriz 4: Estrutura e Funcionamento',
+                        items: [
+                           '<strong>Autonomia Financeira e Administrativa:</strong> As três esferas de Governo devem garantir dotação orçamentária, autonomia e infraestrutura para o pleno funcionamento do Conselho.',
+                           '<strong>Reuniões Abertas:</strong> Devem ser mensais, abertas ao público, em horários e locais que facilitem a participação social, com pauta enviada com 10 dias de antecedência.',
+                           '<strong>Homologação Obrigatória:</strong> As resoluções do conselho devem ser obrigatoriamente homologadas pelo chefe do poder (Prefeito, Governador, etc.) em até 30 dias. Se não o fizer, o conselho pode acionar o Ministério Público.',
+                           '<strong>Prestação de Contas Quadrimestral:</strong> O gestor do SUS (Secretário de Saúde) deve prestar contas detalhadas ao conselho a cada quatro meses.',
+                        ]
+                    },
+                    {
+                        category: 'Diretriz 5: Principais Competências',
+                        items: [
+                           'Atuar na formulação e no controle da execução da política de saúde.',
+                           'Aprovar a proposta orçamentária anual da saúde e o relatório de gestão.',
+                           'Fiscalizar e controlar gastos e a movimentação de recursos do Fundo de Saúde.',
+                           'Deliberar sobre contratos, consórcios e convênios.',
+                           'Convocar e organizar as Conferências de Saúde.',
+                           'Apoiar e promover a educação permanente para o controle social, capacitando seus membros e a comunidade.',
+                           'Divulgar suas ações para a sociedade e fortalecer a articulação com outros órgãos de controle.'
+                        ]
+                    }
+                ]
+            }
         ];
 
         function createAccordionItem(item, index, isSubItem = false) {
@@ -251,9 +331,33 @@
                 </ul>`;
             }
 
-            const buttonClasses = `w-full flex justify-between items-center text-left transition-colors duration-300 ${isSubItem ? 'p-3 bg-blue-50 hover:bg-blue-100 rounded-md' : 'p-4 bg-slate-100 hover:bg-slate-200'}`;
-            const titleClasses = isSubItem ? 'font-medium text-blue-800' : 'text-lg font-semibold text-slate-800';
-            const iconHTML = isSubItem ? `<span class="mr-3">${subItemIconSVG}</span>` : `<span class="mr-3">📘</span>`;
+            let buttonClasses = `w-full flex justify-between items-center text-left transition-colors duration-300`;
+            let titleClasses = ``;
+            let iconHTML = ``;
+
+            if (isSubItem) {
+                buttonClasses += ' p-3 bg-blue-50 hover:bg-blue-100 rounded-md';
+                titleClasses = 'font-medium text-blue-800';
+                iconHTML = `<span class="mr-3">${subItemIconSVG}</span>`;
+            } else {
+                buttonClasses += ' p-4';
+                titleClasses = 'text-lg font-semibold';
+                
+                if (item.id === 'lei8142') {
+                    buttonClasses += ' bg-emerald-50 hover:bg-emerald-100';
+                    titleClasses += ' text-emerald-900';
+                    iconHTML = `<span class="mr-3">⚖️</span>`;
+                } else if (item.id === 'res453') {
+                    buttonClasses += ' bg-amber-50 hover:bg-amber-100';
+                    titleClasses += ' text-amber-900';
+                    iconHTML = `<span class="mr-3">📜</span>`;
+                } else {
+                    buttonClasses += ' bg-slate-100 hover:bg-slate-200';
+                    titleClasses += ' text-slate-800';
+                    iconHTML = `<span class="mr-3">📘</span>`;
+                }
+            }
+            
             const contentContainerClasses = isSubItem ? 'p-3 pl-5 border-l-2 border-blue-200 ml-3' : 'p-5 bg-white';
             
             const initialOpen = index === 0 && !isSubItem;
@@ -304,3 +408,4 @@
     </script>
 </body>
 </html>
+
