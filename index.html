@@ -1,286 +1,276 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regimento Interno do CMSP</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* Tailwind's slate-50 */
-        }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
-        }
-        .accordion-content.open {
-            max-height: 3000px; /* Increased for safety */
-            transition: max-height 0.7s ease-in-out, padding 0.7s ease-in-out;
-        }
-        .chevron-icon {
-            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        .chevron-icon.open {
-            transform: rotate(180deg);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal da Legislação - CMS Parauapebas</title>
+  <!-- Importação do TailwindCSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Aplica o antialiasing para uma fonte mais suave, como no React */
+    body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    /* Efeito de gradiente radial de fundo */
+    .bg-decorator-1 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translate(-50%, -50%);
+      width: 60rem;
+      height: 60rem;
+      border-radius: 9999px;
+      background-image: radial-gradient(circle, rgba(147, 51, 234, 0.2), transparent, transparent);
+      filter: blur(128px);
+      opacity: 0.6;
+    }
+    .bg-decorator-2 {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      transform: translate(50%, 50%);
+      width: 50rem;
+      height: 50rem;
+      border-radius: 9999px;
+      background-image: radial-gradient(circle, rgba(37, 99, 235, 0.2), transparent, transparent);
+      filter: blur(128px);
+      opacity: 0.6;
+    }
+  </style>
 </head>
-<body class="antialiased text-slate-800">
+<body class="min-h-screen bg-zinc-900 text-white">
 
-    <div class="min-h-screen p-4 sm:p-6 md:p-8">
-        <div class="max-w-4xl mx-auto">
-            <header class="text-center mb-10">
-                 <div class="inline-flex items-center justify-center bg-white border-2 border-slate-200 h-16 w-16 rounded-full mb-4 shadow-sm">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 2H20C20.5304 2 21.0391 2.21071 21.4142 2.58579C21.7893 2.96086 22 3.46957 22 4V28C22 28.5304 21.7893 29.0391 21.4142 29.4142C21.0391 29.7893 20.5304 30 20 30H6C5.46957 30 4.96086 29.7893 4.58579 29.4142C4.21071 29.0391 4 28.5304 4 28V4C4 3.46957 4.21071 2.96086 4.58579 2.58579C4.96086 2.21071 5.46957 2 6 2Z" fill="url(#paint0_linear_10_13)"/>
-                        <path d="M26 4H12C11.4696 4 10.9609 4.21071 10.5858 4.58579C10.2107 4.96086 10 5.46957 10 6V30C10 30.5304 10.2107 31.0391 10.5858 31.4142C10.9609 31.7893 11.4696 32 12 32H26C26.5304 32 27.0391 31.7893 27.4142 31.4142C27.7893 31.0391 28 30.5304 28 30V6C28 5.46957 27.7893 4.96086 27.4142 4.58579C27.0391 4.21071 26.5304 4 26 4Z" fill="url(#paint1_linear_10_13)"/>
-                        <defs>
-                        <linearGradient id="paint0_linear_10_13" x1="4" y1="16" x2="22" y2="16" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#A5B4FC"/>
-                        <stop offset="1" stop-color="#C7D2FE"/>
-                        </linearGradient>
-                        <linearGradient id="paint1_linear_10_13" x1="10" y1="18" x2="28" y2="18" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#38BDF8"/>
-                        <stop offset="1" stop-color="#7DD3FC"/>
-                        </linearGradient>
-                        </defs>
-                    </svg>
-                </div>
-                <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
-                    Regimento Interno do CMSP
-                </h1>
-                <p class="text-slate-500 mt-2 max-w-2xl mx-auto">
-                    Regimento Interno e das legislações essenciais do Controle Social no SUS.
-                </p>
-            </header>
-    
-            <main id="accordion-container" class="bg-white rounded-xl shadow-md border border-slate-200/80 overflow-hidden">
-                <!-- O conteúdo do acordeão será injetado aqui pelo JavaScript -->
-            </main>
-            
-            <footer class="text-center mt-10 text-sm text-gray-500">
-                <p>Gerado como um arquivo HTML autônomo e interativo.</p>
-            </footer>
-        </div>
+  <!-- --- ÍCONES (Inline SVG) --- -->
+  <svg width="0" height="0" class="hidden" aria-hidden="true">
+    <symbol id="icon-file-text" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+      <polyline points="14 2 14 8 20 8"></polyline>
+      <line x1="16" y1="13" x2="8" y2="13"></line>
+      <line x1="16" y1="17" x2="8" y2="17"></line>
+      <polyline points="10 9 9 9 8 9"></polyline>
+    </symbol>
+  </svg>
+
+  <!-- --- CABEÇALHO (Navbar) --- -->
+  <nav class="sticky top-0 z-50 w-full bg-zinc-900/80 p-5 backdrop-blur-lg">
+    <div class="container mx-auto flex items-center justify-between">
+      <div class="text-xl font-bold text-white md:text-2xl">
+        Conselho Municipal de Saúde <span class="text-blue-500">Parauapebas</span>
+      </div>
     </div>
+  </nav>
 
-    <script>
-        const regimentoData = [
-            {
-                id: 'cap1',
-                title: 'Capítulo I - Constituição',
-                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 3H17.5C18.8807 3 20 4.11929 20 5.5V5.5C20 6.88071 18.8807 8 17.5 8H8V3Z" fill="#a78bfa"/><path d="M4 5.5C4 4.11929 5.11929 3 6.5 3H8V8H6.5C5.11929 8 4 6.88071 4 5.5V5.5Z" fill="#c4b5fd"/><path d="M4 18.5C4 19.8807 5.11929 21 6.5 21H8V16H6.5C5.11929 16 4 17.1193 4 18.5V18.5Z" fill="#c4b5fd"/><path d="M8 21H17.5C18.8807 21 20 19.8807 20 18.5V18.5C20 17.1193 18.8807 16 17.5 16H8V21Z" fill="#a78bfa"/><rect x="8" y="3" width="2" height="18" fill="#8b5cf6"/><rect x="4" y="8" width="16" height="8" rx="1" fill="#ddd6fe"/></svg>',
-                content: '<strong>Art. 1º</strong> – Estabelece as normas do CMSP, com base na Lei Municipal nº 2.914-A/1997 e na Lei nº 4.341/2007, além das Leis Federais 8.080/90 e 8.142/90.',
-            },
-            {
-                id: 'cap2',
-                title: 'Capítulo II - Definição e Objetivos',
-                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="#fca5a5"/><circle cx="12" cy="12" r="6" fill="#fecaca"/><circle cx="12" cy="12" r="2" fill="#ef4444"/></svg>',
-                content: '<strong>Art. 2º</strong> – Define o CMSP como órgão colegiado paritário e permanente. Suas funções são: consultiva, normativa, deliberativa, fiscalizadora e mobilizadora para o controle da política de saúde.',
-            },
-            {
-                id: 'cap3',
-                title: 'Capítulo III - Diretrizes Básicas',
-                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="4" rx="1" fill="#93c5fd"/><rect x="3" y="10" width="18" height="4" rx="1" fill="#93c5fd"/><rect x="3" y="16" width="18" height="4" rx="1" fill="#93c5fd"/><circle cx="5" cy="6" r="1" fill="#1e40af"/><circle cx="5" cy="12" r="1" fill="#1e40af"/><circle cx="5" cy="18" r="1" fill="#1e40af"/></svg>',
-                content: '<strong>Art. 3º</strong> – Diretrizes prioritárias para a atuação do conselho:',
-                details: [
-                    'Garantir acesso universal e igualitário à saúde.',
-                    'Integrar, hierarquizar e regionalizar os serviços de saúde.',
-                    'Promover a descentralização efetiva das ações.',
-                    'Garantir a participação popular e a democratização das decisões.',
-                    'Efetivar uma política de Recursos Humanos com concurso, PCCR e educação permanente.',
-                ],
-            },
-            {
-                id: 'cap4',
-                title: 'Capítulo IV - Competências',
-                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#fcd34d"/></svg>',
-                content: '<strong>Art. 4º</strong> – O CMSP possui um vasto conjunto de competências para o controle da política de saúde. Explore as categorias abaixo para ver os detalhes:',
-                categorizedDetails: [
-                    { category: 'Planejamento e Gestão Estratégica', items: ['Estabelecer, fiscalizar e avaliar a política de saúde municipal.','Definir diretrizes para o Plano Municipal de Saúde (PMS), PPA, e PAS.','Aprovar o Relatório Anual de Gestão (RAG).','Propor medidas para o aperfeiçoamento do SUS municipal.'] },
-                    { category: 'Fiscalização Financeira e Orçamentária', items: ['Acompanhar a execução e destinação de recursos do Fundo Municipal de Saúde (FMS).','Aprovar previamente propostas orçamentárias do FMS.','Ter acesso integral a informações financeiras, contratos e convênios do SUS municipal.'] },
-                    { category: 'Controle Social e Participação Popular', items: ['Garantir a participação da sociedade civil organizada.','Analisar e responder a propostas e denúncias da população.','Convocar e estruturar a Conferência Municipal de Saúde.','Realizar audiências públicas para debater temas de saúde.'] },
-                    { category: 'Serviços de Saúde e Recursos Humanos', items: ['Definir critérios para localização e tipo de unidades de saúde.','Acompanhar e avaliar os serviços prestados por entidades públicas e privadas conveniadas.','Fiscalizar a implantação de cursos na área de saúde.','Propor políticas para a melhoria da formação dos trabalhadores da área.'] },
-                ],
-            },
-            {
-                id: 'cap5',
-                title: 'Capítulo V - Composição',
-                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="7" r="4" fill="#60a5fa"/><path d="M17 21V19C17 16.7909 15.2091 15 13 15H5C2.79086 15 1 16.7909 1 19V21" fill="#93c5fd"/><path d="M23 21V19C23 16.8937 21.3211 15.203 19.2453 15.0195C19.7593 15.5623 20.122 16.2462 20.2913 17H21.5C22.3284 17 23 17.6716 23 18.5V21Z" fill="#93c5fd"/><path d="M16 3.13C17.7262 3.63934 19 5.16334 19 7C19 8.83666 17.7262 10.3607 16 10.87" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-                content: '<strong>Art. 5º</strong> – O CMSP é composto por 16 membros titulares e seus suplentes, com a seguinte paridade:',
-                details: ['<strong>50% – Usuários do SUS.</strong>','25% – Trabalhadores da saúde.','25% – Representantes do governo e prestadores de serviços.'],
-                subDetails: [{ title: 'Regras Importantes:', items: ['<strong>Indicação:</strong> Os membros são indicados de forma autônoma por suas entidades e homologados pelo Prefeito.','<strong>Mandato:</strong> 2 anos, podendo ser prorrogado.','<strong>Perda de Mandato:</strong> Ocorre por faltas (3 seguidas ou 4 alternadas) ou se a conduta do membro for declarada incompatível com a função.','<strong>Voto:</strong> Cada membro tem direito a um voto, sem voto de qualidade do presidente.']}],
-            },
-            {
-                id: 'cap6',
-                title: 'Capítulo VI - Organização',
-                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="7" height="7" rx="1" fill="#f9a8d4"/><rect x="14" y="3" width="7" height="7" rx="1" fill="#f9a8d4"/><rect x="3" y="14" width="7" height="7" rx="1" fill="#f9a8d4"/><rect x="14" y="14" width="7" height="7" rx="1" fill="#f9a8d4"/><path d="M10 6.5H14" stroke="#db2777" stroke-width="2" stroke-linecap="round"/><path d="M6.5 10V14" stroke="#db2777" stroke-width="2" stroke-linecap="round"/><path d="M17.5 10V14" stroke="#db2777" stroke-width="2" stroke-linecap="round"/><path d="M10 17.5H14" stroke="#db2777" stroke-width="2" stroke-linecap="round"/></svg>',
-                content: '<strong>Art. 6º a 48</strong> – A estrutura do CMSP é desenhada para garantir a operacionalidade e a representatividade. Conheça cada instância:',
-                categorizedDetails: [
-                    { category: 'Plenário: O Coração do Conselho', items: ['É o fórum máximo de deliberações, com reuniões ordinárias e extraordinárias.','Competência dos conselheiros: participar, discutir, votar, requerer informações e representar o conselho.'] },
-                    { category: 'Mesa Diretora: A Liderança Executiva', items: ['Composta por Presidente, Vice-Presidente e Secretários, com mandato de 2 anos.','Responsável por articular o funcionamento, preparar pautas e encaminhar as deliberações do Plenário.'] },
-                    { category: 'Comissões Permanentes: O Trabalho Técnico', items: ['<strong>COAD (Administrativa):</strong> Analisar prestações de contas, RAG e apurar denúncias administrativas.','<strong>COT (Técnica):</strong> Apurar "in loco" denúncias de falhas técnicas e operacionais nos serviços.','<strong>COFIN (Orçamento e Finanças):</strong> Acompanhar licitações e a execução orçamentária da Secretaria de Saúde.','<strong>Comunicação e Educação Permanente:</strong> Traçar a política de comunicação e promover a capacitação dos conselheiros.'] },
-                ],
-            },
-            {
-                id: 'reunioes',
-                title: 'Funcionamento das Reuniões',
-                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="18" rx="2" fill="#bae6fd"/><path d="M3 10H21" stroke="#0369a1" stroke-width="2"/><path d="M8 2V6" stroke="#0369a1" stroke-width="2" stroke-linecap="round"/><path d="M16 2V6" stroke="#0369a1" stroke-width="2" stroke-linecap="round"/><circle cx="8.5" cy="13.5" r="1.5" fill="#0c4a6e"/><circle cx="15.5" cy="13.5" r="1.5" fill="#0c4a6e"/><circle cx="8.5" cy="18.5" r="1.5" fill="#0c4a6e"/></svg>',
-                content: '<strong>Art. 17, 42 e 43</strong> – Regras centrais para o funcionamento do Plenário:',
-                categorizedDetails: [
-                    { category: 'Frequência e Quórum', items: ['<strong>Frequência:</strong> Reuniões ordinárias mensais e extraordinárias quando necessário.','<strong>Quórum de Início:</strong> Maioria simples dos membros (com 30 min de tolerância).','<strong>Quórum de Deliberação:</strong> Voto de 50% + 1 de TODOS os membros (maioria absoluta).'] },
-                    { category: 'Pauta e Convocação', items: ['<strong>Convocação:</strong> Pauta enviada com 72h de antecedência (ordinárias) ou 24h (extraordinárias).','<strong>Estrutura da Pauta:</strong> 1) Ata, 2) Expediente (informes), 3) Ordem do Dia (deliberações).','<strong>Publicidade:</strong> As reuniões são públicas e abertas a qualquer interessado.'] },
-                    { category: 'Votação e Deliberações', items: ['<strong>Votação:</strong> Sempre aberta, por contagem de votos (a favor, contra, abstenção). Votação secreta é vedada.','<strong>Tempo de Fala:</strong> Conselheiros têm tempo regimental para intervenções (geralmente 3 minutos).','<strong>Deliberações:</strong> Formalizadas através de Resoluções, que devem ser homologadas pelo Prefeito ou Secretário de Saúde.'] }
-                ]
-            },
-            {
-                id: 'cap7',
-                title: 'Capítulo VII - Disposições Finais',
-                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="#a7f3d0"/><path d="M16.5 8.5L10.5 14.5L7.5 11.5" stroke="#047857" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-                content: '<strong>Art. 49 a 53</strong> – Regras finais de funcionamento:',
-                details: ['Qualquer alteração neste Regimento exige proposta de 1/3 dos membros.','A aprovação de mudanças requer um quórum qualificado de 2/3 dos conselheiros.','Servidores públicos que atuam no CMSP têm seus salários e vantagens garantidos por lei.','Os casos omissos serão resolvidos pelo Plenário.'],
-            },
-            {
-                id: 'lei8142',
-                title: 'Lei Federal nº 8.142/90',
-                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 21H20" stroke="#059669" stroke-width="2" stroke-linecap="round"/><path d="M6 17H7" stroke="#059669" stroke-width="2" stroke-linecap="round"/><path d="M17 17H18" stroke="#059669" stroke-width="2" stroke-linecap="round"/><path d="M11.5 17H12.5" stroke="#059669" stroke-width="2" stroke-linecap="round"/><path d="M3 10L12 3L21 10V17H3V10Z" fill="#6ee7b7"/></svg>',
-                content: 'Dispõe sobre a participação da comunidade na gestão do SUS e sobre as transferências de recursos financeiros. Conhecida como a <strong>Lei do Controle Social</strong>.',
-                categorizedDetails: [
-                    { category: 'Controle Social no SUS (Art. 1º)', items: ['O SUS contará, em cada esfera de governo, com:','<strong>I - Conferência de Saúde:</strong> Reúne-se a cada 4 anos para avaliar a situação da saúde e propor diretrizes.','<strong>II - Conselho de Saúde:</strong> Órgão permanente e deliberativo, que atua na formulação e controle da política de saúde.'] },
-                    { category: 'Condições para Receber Recursos (Art. 4º)', items: ['Para receber recursos federais, os municípios, estados e DF devem obrigatoriamente ter:','<strong>1. Fundo de Saúde</strong>','<strong>2. Conselho de Saúde (paritário)</strong>','<strong>3. Plano de Saúde</strong>','<strong>4. Relatórios de Gestão</strong>','<strong>5. Contrapartida Financeira</strong>','<strong>6. PCCS (Plano de Cargos e Salários)</strong>','<strong>Consequência Grave:</strong> O não atendimento implica na <strong>suspensão imediata</strong> dos repasses.'] },
-                    { category: 'Forma de Repasse (Art. 3º)', items: ['Os recursos devem ser repassados de forma <strong>regular, automática e fundo a fundo</strong>.','É vedado o uso desses recursos para pagamento de pessoal (salvo exceções específicas).'] }
-                ]
-            },
-            {
-                id: 'res453',
-                title: 'Resolução CNS nº 453/12',
-                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 4H19C19.5523 4 20 4.44772 20 5V20C20 20.5523 19.5523 21 19 21H9C8.44772 21 8 20.5523 8 20V5C8 4.44772 8.44772 4 9 4Z" fill="#fde68a"/><path d="M4 4H10V19H5C4.44772 19 4 18.5523 4 18V5C4 4.44772 4.44772 4 5 4H4Z" fill="#fcd34d"/><rect x="10" y="7" width="8" height="2" rx="1" fill="#ca8a04"/><rect x="10" y="11" width="8" height="2" rx="1" fill="#ca8a04"/><rect x="10" y="15" width="5" height="2" rx="1" fill="#ca8a04"/></svg>',
-                content: 'Aprova as diretrizes para instituição, reformulação, reestruturação e funcionamento dos Conselhos de Saúde em todo o Brasil.',
-                categorizedDetails: [
-                    { category: 'Diretriz 3: Organização e Composição', items: ['<strong>Paridade:</strong> 50% de usuários; 25% de trabalhadores; 25% de governo/prestadores.','<strong>Autonomia e Independência:</strong> Um representante não pode pertencer a mais de um segmento.','<strong>Vedação:</strong> É proibida a participação de membros do Poder Legislativo, Judiciário e MP como conselheiros.','<strong>Renovação:</strong> Recomenda-se a renovação de, no mínimo, 30% das entidades a cada eleição.','<strong>Função Pública:</strong> Não é remunerada, garante dispensa do trabalho sem prejuízo.'] },
-                    { category: 'Diretriz 4: Estrutura e Funcionamento', items: ['<strong>Autonomia Financeira:</strong> Os governos devem garantir dotação orçamentária e infraestrutura para o Conselho.','<strong>Reuniões Abertas:</strong> Devem ser mensais, públicas, com pauta enviada com 10 dias de antecedência.','<strong>Homologação Obrigatória:</strong> Resoluções devem ser homologadas pelo gestor (ex: Prefeito) em até 30 dias. Se não o fizer, o conselho pode acionar o MP.','<strong>Prestação de Contas:</strong> O Secretário de Saúde deve prestar contas ao conselho a cada quatro meses.'] },
-                    { category: 'Diretriz 5: Principais Competências', items: ['Formular e controlar a execução da política de saúde.','Aprovar a proposta orçamentária anual e o relatório de gestão.','Fiscalizar gastos e a movimentação de recursos do Fundo de Saúde.','Deliberar sobre contratos e convênios.','Organizar as Conferências de Saúde.','Promover a educação permanente para o controle social.'] }
-                ]
-            }
-        ];
+  <main>
+    <!-- --- SECÇÃO PRINCIPAL (Hero) --- -->
+    <section id="portal" class="relative overflow-hidden bg-zinc-900 py-10 md:py-12">
+      <div class="bg-decorator-1" aria-hidden="true"></div>
+      <div class="bg-decorator-2" aria-hidden="true"></div>
 
-        function createAccordionItem(item, index, isSubItem = false) {
-            const chevronIconSVG = `
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 chevron-icon shrink-0 text-slate-500">
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>`;
-            
-            const subItemIconSVG = `
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-blue-600/80">
-                    <polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline>
-                </svg>`;
+      <div class="container relative z-10 mx-auto px-5 text-center">
+        <h1 class="text-5xl font-extrabold tracking-tighter text-white md:text-7xl lg:text-8xl">
+          Portal da Legislação
+        </h1>
+        <p class="mx-auto mt-6 max-w-2xl text-lg text-zinc-400 md:text-xl">
+          Acesse todas as leis, resoluções, portarias e decretos do
+          Conselho Municipal de Saúde de Parauapebas.
+        </p>
+      </div>
+    </section>
 
-            let contentHTML = '';
-            if (item.content) {
-                contentHTML += `<p class="mb-4 text-slate-600">${item.content}</p>`;
-            }
-            if (item.details) {
-                contentHTML += `<ul class="space-y-2.5">
-                    ${item.details.map(detail => `<li class="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-blue-500 mr-3 shrink-0"><path d="M20 6 9 17l-5-5"></path></svg><span class="text-slate-600">${detail}</span></li>`).join('')}
-                </ul>`;
-            }
-            if(item.categorizedDetails) {
-                 contentHTML += `<div class="space-y-3 mt-4">
-                    ${item.categorizedDetails.map((cat, catIndex) => createAccordionItem({ ...cat, id: `${item.id}-cat-${catIndex}`, title: cat.category }, catIndex, true)).join('')}
-                 </div>`
-            }
-            if (item.subDetails) {
-                 contentHTML += item.subDetails.map(sub => `
-                    <div class="mt-5">
-                        <h4 class="font-semibold text-slate-800 mb-2">${sub.title}</h4>
-                        <ul class="space-y-2.5 pl-2">
-                            ${sub.items.map(subItem => `<li class="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-slate-400 mr-3 shrink-0 mt-1"><circle cx="12" cy="12" r="10"></circle></svg><span class="text-slate-600">${subItem}</span></li>`).join('')}
-                        </ul>
-                    </div>
-                 `).join('');
-            }
-            if (item.items && isSubItem) {
-                contentHTML += `<ul class="space-y-2.5">
-                    ${item.items.map(detail => `<li class="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-slate-400 mr-3 shrink-0 mt-1"><path d="m9 18 6-6-6-6"></path></svg><span class="text-slate-600 text-sm">${detail}</span></li>`).join('')}
-                </ul>`;
-            }
+    <!-- --- SECÇÃO DE DOCUMENTOS --- -->
+    <section id="documentos" class="bg-zinc-900 pt-8 md:pt-12 pb-10 md:pb-12">
+      <div class="container mx-auto px-5">
+        <div class="mx-auto max-w-2xl text-center">
+          <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            Navegue pela Legislação
+          </h2>
+          <p class="mt-4 text-lg text-zinc-400">
+            Selecione a categoria para encontrar os documentos que procura.
+          </p>
+        </div>
 
-            let buttonClasses = `w-full flex justify-between items-center text-left transition-all duration-300`;
-            let titleClasses = `text-lg font-semibold`;
-            let iconContainerClasses = `flex items-center justify-center w-10 h-10 rounded-lg mr-4 shrink-0`;
+        <!-- Botões de Aba -->
+        <div id="tabs-container" class="mt-16 mb-12 flex flex-wrap items-center justify-center gap-4">
+          <!-- Botões com texto branco e tamanho aumentado -->
+          <button data-tab="leis" class="tab-button inline-flex items-center justify-center rounded-lg font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 px-5 py-3 text-xl text-white">
+            Leis
+          </button>
+          <button data-tab="decretos" class="tab-button inline-flex items-center justify-center rounded-lg font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 px-5 py-3 text-xl text-white">
+            Decretos
+          </button>
+          <button data-tab="portarias" class="tab-button inline-flex items-center justify-center rounded-lg font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 px-5 py-3 text-xl text-white">
+            Portarias
+          </button>
+          <button data-tab="resolucoes" class="tab-button inline-flex items-center justify-center rounded-lg font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 px-5 py-3 text-xl text-white">
+            Resoluções
+          </button>
+          <button data-tab="normas" class="tab-button inline-flex items-center justify-center rounded-lg font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 px-5 py-3 text-xl text-white">
+            Normas de Consolidação
+          </button>
+        </div>
 
-            if (isSubItem) {
-                buttonClasses += ' p-3 hover:bg-slate-50 rounded-lg';
-                titleClasses = 'font-semibold text-slate-700';
-                iconContainerClasses = ''; // No background for sub-item icon
-            } else {
-                buttonClasses += ' p-4';
-                
-                if (item.id === 'lei8142') {
-                    titleClasses += ' text-green-900';
-                } else if (item.id === 'res453') {
-                    titleClasses += ' text-yellow-900';
-                } else {
-                    titleClasses += ' text-slate-800';
-                }
-            }
-            
-            const contentContainerClasses = isSubItem ? 'py-3 pl-6 border-l-2 border-slate-200 ml-4' : 'p-5 lg:p-6 bg-white';
-            
-            const initialOpen = index === 0 && !isSubItem;
+        <!-- Grid Responsivo de Documentos -->
+        <div id="document-grid" class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <!-- Documentos serão inseridos aqui pelo JS -->
+        </div>
 
-            return `
-                <div class="${isSubItem ? '' : 'border-b border-slate-200/80 last:border-b-0'}">
-                    <button class="accordion-button ${buttonClasses}" data-target="#content-${item.id}">
-                        <div class="flex items-center">
-                            <div class="${iconContainerClasses}">
-                                ${isSubItem ? subItemIconSVG : item.icon}
-                            </div>
-                            <h3 class="${titleClasses}">${item.title}</h3>
-                        </div>
-                        ${chevronIconSVG}
-                    </button>
-                    <div id="content-${item.id}" class="accordion-content ${initialOpen ? 'open' : ''}">
-                        <div class="${contentContainerClasses}">
-                            ${contentHTML}
-                        </div>
-                    </div>
-                </div>
-            `;
+        <!-- Mensagem de "Nenhum item" -->
+        <p id="empty-message" class="mt-8 text-center text-zinc-400 hidden">
+          Nenhum documento encontrado nesta categoria.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- --- RODAPÉ (Footer) --- -->
+  <footer class="bg-zinc-900 py-16 sm:py-20">
+    <div class="container mx-auto px-5 text-center">
+      <p class="text-sm text-zinc-500">
+        © <span id="current-year"></span> Conselho Municipal de Saúde de Parauapebas.
+      </p>
+    </div>
+  </footer>
+
+  <!-- --- LÓGICA JAVASCRIPT --- -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // --- Dados do Portal ---
+      const tabsData = {
+        leis: [
+          { id: 1, title: "Lei nº 8.080/1990 - Lei Orgânica da Saúde", date: "1990-09-19", link: "https://www.planalto.gov.br/ccivil_03/leis/l8080.htm" },
+          { id: 2, title: "Lei nº 8.142/1990 - Participação da Comunidade no SUS", date: "1990-12-28", link: "https://www.planalto.gov.br/ccivil_03/leis/l8142.htm" },
+          { id: 3, title: "Lei Complementar nº 141/2012 - Financiamento da Saúde", date: "2012-01-13", link: "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp141.htm" },
+          // Adicionada: Estatuto do Idoso (Lei 10.741/2003)
+          { id: 4, title: "Lei nº 10.741/2003 - Estatuto do Idoso", date: "2003-10-01", link: "https://www.planalto.gov.br/ccivil_03/leis/2003/l10741.htm" }
+        ],
+        decretos: [
+          { id: 1, title: "Decreto nº 5.839/2006 - Organização do Conselho Nacional de Saúde", date: "2006-07-11", link: "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/decreto/d5839.htm" },
+          { id: 2, title: "Decreto nº 7.508/2011 - Regulamenta a Lei 8.080/1990", date: "2011-06-28", link: "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/decreto/d7508.htm" },
+        ],
+        portarias: [
+          { id: 1, title: "Portaria GM/MS nº 3.493/2024 - Cofinanciamento da APS", date: "2024-04-10", link: "https://bvsms.saude.gov.br/bvs/saudelegis/gm/2024/prt3493_11_04_2024.html" },
+          { id: 2, title: "Portaria GM/MS nº 5.201/2024 - Lista Nacional de Notificação Compulsória", date: "2024-08-15", link: "https://bvsms.saude.gov.br/bvs/saudelegis/gm/2024/prt5201_19_08_2024.html" },
+          { id: 3, title: "Portaria GM/MS nº 6.930/2025 - Revisão da Política Nacional de Regulação", date: "2025-05-14", link: "https://portal.conasems.org.br/legislacao-diaria/2512_legislacao-diaria.html" },
+          { id: 4, title: "Portaria GM/MS nº 1.604/2023 - Política Nacional de Atenção Especializada (PNAES)", date: "2023-10-18", link: "https://bvsms.saude.gov.br/bvs/saudelegis/gm/2023/prt1604_18_10_2023.html" },
+          // Portaria 4.279: coloquei um placeholder — por favor informe o ano e/ou link oficial para eu atualizar com a referência exata
+          { id: 5, title: "Portaria nº 4.279 - (fornecer ano/link)", date: "", link: "#" }
+        ],
+        resolucoes: [
+          { id: 4, title: "Resolução CNS nº 453/2012 - Direitos e Deveres dos Usuários da Saúde", date: "2012-05-10", link: "https://www.gov.br/conselho-nacional-de-saude/pt-br/acesso-a-informacao/atos-normativos/resolucoes/2012/resolucao-no-453.pdf/view" },
+          { id: 1, title: "Resolução CNS nº 674/2022 - Pesquisa no Sistema CEP/Conep", date: "2022-05-06", link: "https://www.gov.br/conselho-nacional-de-saude/pt-br/camaras-tecnicas-e-comissoes/comissao-de-etanata.html" },
+          { id: 2, title: "Resolução CNS nº 706/2023 - Comitês de Ética em Pesquisa", date: "2023-02-16", link: "https://www.gov.br/conselho-nacional-de-saude/pt-br/camaras-tecnicas-e-comissoes/ceps.html" },
+          { id: 3, title: "Resolução CNS nº 588/2018 - Política Nacional de Vigilância em Saúde", date: "2018-07-12", link: "https://conselho.saude.gov.br/resolucoes/2018/Reso588.pdf" },
+        ],
+        // Nova aba: Normas de Consolidação (você pode fornecer links/itens que queira listar aqui)
+        normas: [
+          { id: 1, title: "Consolidação das Normas - Volume I (placeholder)", date: "", link: "#" },
+          { id: 2, title: "Consolidação das Normas - Volume II (placeholder)", date: "", link: "#" }
+        ]
+      };
+
+      let activeTab = "leis";
+
+      // --- Seletores do DOM ---
+      const tabsContainer = document.getElementById('tabs-container');
+      const documentGrid = document.getElementById('document-grid');
+      const emptyMessage = document.getElementById('empty-message');
+      const currentYearSpan = document.getElementById('current-year');
+
+      // --- Estilos dos Botões ---
+      const styles = {
+        primary: 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:opacity-90 active:scale-95 focus:ring-blue-500',
+        secondary: 'bg-zinc-700 text-white hover:bg-zinc-600 active:scale-95 focus:ring-zinc-500',
+      };
+
+      /**
+       * Cria o HTML para um DocumentCard.
+       */
+      function createDocumentCard({ title, date, link }) {
+        return `
+          <a
+            href="${link}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group relative block overflow-hidden rounded-xl bg-zinc-800/50 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-zinc-800 hover:scale-[1.03] hover:shadow-2xl"
+          >
+            <div class="relative z-10">
+              <svg class="mb-4 h-8 w-8 text-blue-400"><use href="#icon-file-text"></use></svg>
+              <h3 class="mb-2 text-lg font-semibold text-white">${title}</h3>
+              <p class="text-sm text-zinc-400">Publicado em: ${date}</p>
+            </div>
+          </a>
+        `;
+      }
+
+      /**
+       * Renderiza os documentos no grid e atualiza os botões.
+       */
+      function renderContent(tabKey) {
+        activeTab = tabKey;
+        const items = tabsData[tabKey] || [];
+
+        // Limpa o grid
+        documentGrid.innerHTML = '';
+
+        // Renderiza items
+        if (items.length > 0) {
+          emptyMessage.classList.add('hidden');
+          items.forEach(doc => {
+            documentGrid.innerHTML += createDocumentCard(doc);
+          });
+        } else {
+          emptyMessage.classList.remove('hidden');
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const container = document.getElementById('accordion-container');
-            container.innerHTML = regimentoData.map((item, index) => createAccordionItem(item, index)).join('');
-            
-            const firstButton = container.querySelector('.accordion-button');
-            if (firstButton) {
-                const firstChevron = firstButton.querySelector('.chevron-icon');
-                if (firstChevron) firstChevron.classList.add('open');
-            }
+        // Atualiza estilos dos botões
+        updateButtonStyles();
+      }
 
-            container.addEventListener('click', function(event) {
-                const button = event.target.closest('.accordion-button');
-                if (button) {
-                    const content = document.querySelector(button.dataset.target);
-                    const chevron = button.querySelector('.chevron-icon');
-                    
-                    if (content) {
-                        content.classList.toggle('open');
-                        chevron.classList.toggle('open');
-                    }
-                }
-            });
+      /**
+       * Atualiza os estilos dos botões de aba.
+       */
+      function updateButtonStyles() {
+        const buttons = tabsContainer.querySelectorAll('.tab-button');
+        buttons.forEach(button => {
+          const tab = button.dataset.tab;
+          // Remove tokens das classes de estilo anteriores, se existirem
+          button.classList.remove(...styles.primary.split(' '), ...styles.secondary.split(' '));
+
+          // Adiciona estilo correto
+          if (tab === activeTab) {
+            button.classList.add(...styles.primary.split(' '));
+          } else {
+            button.classList.add(...styles.secondary.split(' '));
+          }
+        });
+      }
+
+      /**
+       * Inicializa os botões e o conteúdo.
+       */
+      function initialize() {
+        // Preenche os nomes dos botões (mantive texto legível no HTML)
+        const buttons = tabsContainer.querySelectorAll('.tab-button');
+        buttons.forEach(button => {
+          if (!button.textContent.trim()) {
+            button.textContent = button.dataset.tab;
+          }
+          // Adiciona evento de clique
+          button.addEventListener('click', () => {
+            renderContent(button.dataset.tab);
+          });
         });
 
-    </script>
+        // Define o ano no rodapé
+        currentYearSpan.textContent = new Date().getFullYear();
+
+        // Renderiza o conteúdo inicial
+        renderContent(activeTab);
+      }
+
+      initialize();
+    });
+  </script>
 </body>
 </html>
-
-
-
