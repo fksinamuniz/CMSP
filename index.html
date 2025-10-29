@@ -1,45 +1,375 @@
-<!DOCTYPE html>
 <html lang="pt-br" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+  <meta name="theme-color" content="#18181b" />
+  <meta name="description" content="Portal da Legislação - Conselho Municipal de Saúde de Parauapebas" />
   <title>Portal da Legislação - CMS Parauapebas</title>
+  
   <!-- Importação do TailwindCSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- AOS - Animate On Scroll Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+  <!-- Hammer.js for touch gestures -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+  
   <style>
-    /* Aplica o antialiasing para uma fonte mais suave, como no React */
+    /* Aplica o antialiasing para uma fonte mais suave */
     body {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      -webkit-tap-highlight-color: transparent;
     }
-    /* Efeito de gradiente radial de fundo */
+    
+    /* Efeitos de gradiente radial de fundo animados - otimizados para mobile */
     .bg-decorator-1 {
       position: absolute;
-      top: 0;
-      left: 0;
-      transform: translate(-50%, -50%);
+      top: -10%;
+      left: -10%;
+      width: 70rem;
+      height: 70rem;
+      border-radius: 9999px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.15), rgba(147, 51, 234, 0.08), transparent);
+      filter: blur(80px);
+      opacity: 0.5;
+      animation: float 20s ease-in-out infinite;
+      will-change: transform;
+    }
+    
+    @media (min-width: 768px) {
+      .bg-decorator-1 {
+        filter: blur(120px);
+        opacity: 0.7;
+      }
+    }
+    
+    .bg-decorator-2 {
+      position: absolute;
+      bottom: -15%;
+      right: -15%;
       width: 60rem;
       height: 60rem;
       border-radius: 9999px;
-      background-image: radial-gradient(circle, rgba(147, 51, 234, 0.2), transparent, transparent);
-      filter: blur(128px);
-      opacity: 0.6;
+      background: radial-gradient(circle, rgba(147, 51, 234, 0.15), rgba(59, 130, 246, 0.08), transparent);
+      filter: blur(80px);
+      opacity: 0.5;
+      animation: float 25s ease-in-out infinite reverse;
+      will-change: transform;
     }
-    .bg-decorator-2 {
+    
+    @media (min-width: 768px) {
+      .bg-decorator-2 {
+        filter: blur(120px);
+        opacity: 0.7;
+      }
+    }
+    
+    .bg-decorator-3 {
       position: absolute;
-      bottom: 0;
-      right: 0;
-      transform: translate(50%, 50%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       width: 50rem;
       height: 50rem;
       border-radius: 9999px;
-      background-image: radial-gradient(circle, rgba(37, 99, 235, 0.2), transparent, transparent);
-      filter: blur(128px);
-      opacity: 0.6;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.1), transparent);
+      filter: blur(60px);
+      opacity: 0.3;
+      animation: pulse 15s ease-in-out infinite;
+      will-change: transform, opacity;
+    }
+    
+    @media (min-width: 768px) {
+      .bg-decorator-3 {
+        filter: blur(100px);
+        opacity: 0.5;
+      }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(15px, -15px); }
+      50% { transform: translate(-10px, 10px); }
+      75% { transform: translate(20px, 5px); }
+    }
+    
+    @media (min-width: 768px) {
+      @keyframes float {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(30px, -30px); }
+        50% { transform: translate(-20px, 20px); }
+        75% { transform: translate(40px, 10px); }
+      }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 0.2; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 0.4; transform: translate(-50%, -50%) scale(1.05); }
+    }
+    
+    @media (min-width: 768px) {
+      @keyframes pulse {
+        0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+        50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
+      }
+    }
+    
+    /* Glassmorphism effect - optimized for mobile */
+    .glass {
+      background: rgba(24, 24, 27, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    @media (min-width: 768px) {
+      .glass {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+    }
+    
+    /* Card hover/active glow effect */
+    .card-glow {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card-glow::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    /* Desktop hover */
+    @media (hover: hover) and (pointer: fine) {
+      .card-glow:hover::before {
+        left: 100%;
+      }
+    }
+    
+    /* Mobile active state */
+    @media (hover: none) and (pointer: coarse) {
+      .card-glow:active::before {
+        left: 100%;
+      }
+    }
+    
+    /* Shine effect on cards */
+    .shine {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .shine::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.08) 50%,
+        transparent 70%
+      );
+      transform: rotate(45deg);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    /* Desktop hover */
+    @media (hover: hover) and (pointer: fine) {
+      .shine:hover::after {
+        opacity: 1;
+        animation: shine 0.8s ease-in-out;
+      }
+    }
+    
+    /* Mobile active state */
+    @media (hover: none) and (pointer: coarse) {
+      .shine:active::after {
+        opacity: 1;
+        animation: shine 0.6s ease-in-out;
+      }
+    }
+    
+    @keyframes shine {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    }
+    
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% auto;
+      animation: gradient-shift 5s ease infinite;
+    }
+    
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    /* Tab button active indicator */
+    .tab-indicator {
+      position: relative;
+    }
+    
+    .tab-indicator::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+    
+    .tab-indicator.active::after {
+      width: 80%;
+    }
+    
+    /* Fade in animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @media (min-width: 768px) {
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease-out;
+    }
+    
+    /* Stagger animation for grid items */
+    .stagger-item {
+      opacity: 0;
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+    
+    .stagger-item:nth-child(1) { animation-delay: 0.05s; }
+    .stagger-item:nth-child(2) { animation-delay: 0.1s; }
+    .stagger-item:nth-child(3) { animation-delay: 0.15s; }
+    .stagger-item:nth-child(4) { animation-delay: 0.2s; }
+    .stagger-item:nth-child(5) { animation-delay: 0.25s; }
+    .stagger-item:nth-child(6) { animation-delay: 0.3s; }
+    .stagger-item:nth-child(7) { animation-delay: 0.35s; }
+    .stagger-item:nth-child(8) { animation-delay: 0.4s; }
+    .stagger-item:nth-child(9) { animation-delay: 0.45s; }
+    
+    @media (min-width: 768px) {
+      .stagger-item:nth-child(1) { animation-delay: 0.1s; }
+      .stagger-item:nth-child(2) { animation-delay: 0.2s; }
+      .stagger-item:nth-child(3) { animation-delay: 0.3s; }
+      .stagger-item:nth-child(4) { animation-delay: 0.4s; }
+      .stagger-item:nth-child(5) { animation-delay: 0.5s; }
+      .stagger-item:nth-child(6) { animation-delay: 0.6s; }
+      .stagger-item:nth-child(7) { animation-delay: 0.7s; }
+      .stagger-item:nth-child(8) { animation-delay: 0.8s; }
+      .stagger-item:nth-child(9) { animation-delay: 0.9s; }
+    }
+    
+    /* Mobile: Horizontal scroll for tabs */
+    .tabs-scroll {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    
+    .tabs-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    
+    /* Mobile drawer */
+    .mobile-drawer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(24, 24, 27, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transform: translateY(100%);
+      transition: transform 0.3s ease-out;
+      z-index: 100;
+      max-height: 70vh;
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .mobile-drawer.open {
+      transform: translateY(0);
+    }
+    
+    .drawer-handle {
+      width: 48px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 999px;
+      margin: 12px auto 16px;
+    }
+    
+    /* Overlay for mobile drawer */
+    .mobile-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease-out;
+      z-index: 99;
+    }
+    
+    .mobile-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    /* Touch-friendly minimum sizes */
+    @media (max-width: 767px) {
+      .touch-target {
+        min-height: 44px;
+        min-width: 44px;
+      }
+    }
+    
+    /* Reduce motion for users who prefer it */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
     }
   </style>
 </head>
-<body class="min-h-screen bg-zinc-900 text-white">
+<body class="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 text-white">
+
+  <!-- Mobile Overlay -->
+  <div id="mobile-overlay" class="mobile-overlay md:hidden"></div>
 
   <!-- --- ÍCONES (Inline SVG) --- -->
   <svg width="0" height="0" class="hidden" aria-hidden="true">
@@ -50,89 +380,188 @@
       <line x1="16" y1="17" x2="8" y2="17"></line>
       <polyline points="10 9 9 9 8 9"></polyline>
     </symbol>
+    <symbol id="icon-sparkles" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
+      <path d="M5 3v4"></path>
+      <path d="M19 17v4"></path>
+      <path d="M3 5h4"></path>
+      <path d="M17 19h4"></path>
+    </symbol>
+    <symbol id="icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </symbol>
+    <symbol id="icon-chevron-down" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </symbol>
   </svg>
 
   <!-- --- CABEÇALHO (Navbar) --- -->
-  <nav class="sticky top-0 z-50 w-full bg-zinc-900/80 p-5 backdrop-blur-lg">
-    <div class="container mx-auto flex items-center justify-between">
-      <div class="text-xl font-bold text-white md:text-2xl">
-        Conselho Municipal de Saúde <span class="text-blue-500">Parauapebas</span>
+  <nav class="sticky top-0 z-50 w-full glass border-b border-white/5" data-aos="fade-down">
+    <div class="container mx-auto flex items-center justify-between px-4 py-3 md:px-6 md:py-5">
+      <div class="flex items-center gap-2 md:gap-3">
+        <svg class="h-6 w-6 md:h-8 md:w-8 text-blue-400 flex-shrink-0"><use href="#icon-sparkles"></use></svg>
+        <div class="text-base md:text-xl lg:text-2xl font-bold text-white leading-tight">
+          <span class="hidden sm:inline">Conselho Municipal de Saúde </span>
+          <span class="sm:hidden">CMS </span>
+          <span class="gradient-text">Parauapebas</span>
+        </div>
       </div>
+      
+      <!-- Mobile category button -->
+      <button id="mobile-category-btn" 
+              class="md:hidden flex items-center gap-2 px-3 py-2 rounded-lg glass border border-blue-500/50 text-sm font-medium text-white touch-target"
+              aria-label="Selecionar categoria">
+        <span id="current-category-label">Leis</span>
+        <svg class="h-4 w-4"><use href="#icon-chevron-down"></use></svg>
+      </button>
     </div>
   </nav>
 
   <main>
     <!-- --- SECÇÃO PRINCIPAL (Hero) --- -->
-    <section id="portal" class="relative overflow-hidden bg-zinc-900 py-10 md:py-12">
+    <section id="portal" class="relative overflow-hidden py-12 md:py-20 lg:py-32">
       <div class="bg-decorator-1" aria-hidden="true"></div>
       <div class="bg-decorator-2" aria-hidden="true"></div>
+      <div class="bg-decorator-3" aria-hidden="true"></div>
 
-      <div class="container relative z-10 mx-auto px-5 text-center">
-        <h1 class="text-5xl font-extrabold tracking-tighter text-white md:text-7xl lg:text-8xl">
-          Portal da Legislação
-        </h1>
-        <p class="mx-auto mt-6 max-w-2xl text-lg text-zinc-400 md:text-xl">
+      <div class="container relative z-10 mx-auto px-4 md:px-6 text-center">
+        <div data-aos="fade-up" data-aos-duration="800">
+          <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tighter text-white leading-tight">
+            Portal da
+            <span class="gradient-text block mt-1 md:mt-2">Legislação</span>
+          </h1>
+        </div>
+        
+        <p class="mx-auto mt-4 md:mt-8 max-w-3xl text-base sm:text-lg md:text-xl lg:text-2xl text-zinc-300 leading-relaxed px-4" 
+           data-aos="fade-up" 
+           data-aos-duration="800" 
+           data-aos-delay="200">
           Acesse todas as leis, resoluções, portarias e decretos do
-          Conselho Municipal de Saúde de Parauapebas.
+          <span class="text-blue-400 font-semibold">Conselho Municipal de Saúde de Parauapebas</span>.
         </p>
+        
+        <!-- Decorative line -->
+        <div class="mx-auto mt-6 md:mt-12 h-1 w-20 md:w-32 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500" 
+             data-aos="zoom-in" 
+             data-aos-duration="800" 
+             data-aos-delay="400"></div>
       </div>
     </section>
 
     <!-- --- SECÇÃO DE DOCUMENTOS --- -->
-    <section id="documentos" class="bg-zinc-900 pt-8 md:pt-12 pb-10 md:pb-12">
-      <div class="container mx-auto px-5">
-        <div class="mx-auto max-w-2xl text-center">
-          <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Navegue pela Legislação
+    <section id="documentos" class="relative py-8 md:py-16 lg:py-24">
+      <div class="container mx-auto px-4 md:px-6">
+        <div class="mx-auto max-w-3xl text-center mb-8 md:mb-16">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white" 
+              data-aos="fade-up">
+            Navegue pela <span class="gradient-text">Legislação</span>
           </h2>
-          <p class="mt-4 text-lg text-zinc-400">
+          <p class="mt-3 md:mt-6 text-base sm:text-lg md:text-xl text-zinc-300 px-4" 
+             data-aos="fade-up" 
+             data-aos-delay="100">
             Selecione a categoria para encontrar os documentos que procura.
           </p>
         </div>
 
-        <!-- Botões de Aba -->
-        <div id="tabs-container" class="mt-16 mb-12 flex flex-wrap items-center justify-center gap-4">
-          <button data-tab="leis" class="tab-button inline-flex items-center justify-center rounded-lg font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 px-5 py-3 text-xl text-white">
-            Leis
+        <!-- Desktop: Botões de Aba -->
+        <div id="tabs-container" 
+             class="hidden md:flex mb-12 lg:mb-16 flex-wrap items-center justify-center gap-3 lg:gap-4" 
+             data-aos="fade-up" 
+             data-aos-delay="200">
+          <button data-tab="leis" 
+                  class="tab-button tab-indicator group relative inline-flex items-center justify-center rounded-xl px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-zinc-900">
+            <span class="relative z-10">Leis</span>
           </button>
-          <button data-tab="decretos" class="tab-button inline-flex items-center justify-center rounded-lg font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 px-5 py-3 text-xl text-white">
-            Decretos
+          <button data-tab="decretos" 
+                  class="tab-button tab-indicator group relative inline-flex items-center justify-center rounded-xl px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-zinc-900">
+            <span class="relative z-10">Decretos</span>
           </button>
-          <button data-tab="portarias" class="tab-button inline-flex items-center justify-center rounded-lg font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 px-5 py-3 text-xl text-white">
-            Portarias
+          <button data-tab="portarias" 
+                  class="tab-button tab-indicator group relative inline-flex items-center justify-center rounded-xl px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-zinc-900">
+            <span class="relative z-10">Portarias</span>
           </button>
-          <button data-tab="resolucoes" class="tab-button inline-flex items-center justify-center rounded-lg font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 px-5 py-3 text-xl text-white">
-            Resoluções
+          <button data-tab="resolucoes" 
+                  class="tab-button tab-indicator group relative inline-flex items-center justify-center rounded-xl px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-zinc-900">
+            <span class="relative z-10">Resoluções</span>
           </button>
-          <button data-tab="normas" class="tab-button inline-flex items-center justify-center rounded-lg font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 px-5 py-3 text-xl text-white">
-            Normas de Consolidação
+          <button data-tab="normas" 
+                  class="tab-button tab-indicator group relative inline-flex items-center justify-center rounded-xl px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-zinc-900">
+            <span class="relative z-10">Normas</span>
           </button>
         </div>
 
         <!-- Grid Responsivo de Documentos -->
-        <div id="document-grid" class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div id="document-grid" 
+             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           <!-- Documentos serão inseridos aqui pelo JS -->
         </div>
 
         <!-- Mensagem de "Nenhum item" -->
-        <p id="empty-message" class="mt-8 text-center text-zinc-400 hidden">
+        <p id="empty-message" 
+           class="mt-8 md:mt-12 text-center text-lg md:text-xl text-zinc-400 hidden px-4">
           Nenhum documento encontrado nesta categoria.
         </p>
       </div>
     </section>
   </main>
 
+  <!-- Mobile: Bottom Drawer para Categorias -->
+  <div id="mobile-drawer" class="mobile-drawer md:hidden">
+    <div class="drawer-handle"></div>
+    <div class="px-6 pb-6 overflow-y-auto" style="max-height: calc(70vh - 40px);">
+      <h3 class="text-xl font-bold text-white mb-4">Selecione uma categoria</h3>
+      <div class="space-y-2">
+        <button data-tab-mobile="leis" 
+                class="mobile-tab-button w-full text-left px-4 py-4 rounded-xl font-semibold transition-all duration-300 touch-target">
+          Leis
+        </button>
+        <button data-tab-mobile="decretos" 
+                class="mobile-tab-button w-full text-left px-4 py-4 rounded-xl font-semibold transition-all duration-300 touch-target">
+          Decretos
+        </button>
+        <button data-tab-mobile="portarias" 
+                class="mobile-tab-button w-full text-left px-4 py-4 rounded-xl font-semibold transition-all duration-300 touch-target">
+          Portarias
+        </button>
+        <button data-tab-mobile="resolucoes" 
+                class="mobile-tab-button w-full text-left px-4 py-4 rounded-xl font-semibold transition-all duration-300 touch-target">
+          Resoluções
+        </button>
+        <button data-tab-mobile="normas" 
+                class="mobile-tab-button w-full text-left px-4 py-4 rounded-xl font-semibold transition-all duration-300 touch-target">
+          Normas de Consolidação
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- --- RODAPÉ (Footer) --- -->
-  <footer class="bg-zinc-900 py-16 sm:py-20">
-    <div class="container mx-auto px-5 text-center">
-      <p class="text-sm text-zinc-500">
-        © <span id="current-year"></span> Conselho Municipal de Saúde de Parauapebas.
-      </p>
+  <footer class="relative glass border-t border-white/5 py-8 md:py-12 lg:py-16 mt-12 md:mt-20">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="text-center">
+        <p class="text-sm md:text-base text-zinc-400">
+          © <span id="current-year"></span> Conselho Municipal de Saúde de Parauapebas.
+        </p>
+        <p class="mt-2 text-xs md:text-sm text-zinc-500">
+          Transparência e acesso à informação pública
+        </p>
+      </div>
     </div>
   </footer>
 
   <!-- --- LÓGICA JAVASCRIPT --- -->
   <script>
+    // Inicializa AOS com configurações otimizadas para mobile
+    AOS.init({
+      duration: 800,
+      once: true,
+      easing: 'ease-out-cubic',
+      offset: 50,
+      disable: 'mobile' // Desabilita em mobile para melhor performance
+    });
+
     document.addEventListener('DOMContentLoaded', () => {
       // --- Dados do Portal ---
       const tabsData = {
@@ -159,12 +588,19 @@
           { id: 3, title: "Resolução CNS nº 706/2023 - Comitês de Ética em Pesquisa", date: "2023-02-16", link: "https://www.gov.br/conselho-nacional-de-saude/pt-br/camaras-tecnicas-e-comissoes/ceps.html" },
           { id: 4, title: "Resolução CNS nº 588/2018 - Política Nacional de Vigilância em Saúde", date: "2018-07-12", link: "https://conselho.saude.gov.br/resolucoes/2018/Reso588.pdf" }
         ],
-        // Normas de Consolidação (contém Estatuto do Idoso / política do idoso link adicionado)
         normas: [
           { id: 1, title: "Consolidação das Normas - Volume I (placeholder)", date: "", link: "#" },
           { id: 2, title: "Consolidação das Normas - Volume II (placeholder)", date: "", link: "#" },
           { id: 3, title: "Política do Idoso (busca) - índice/portal", date: "", link: "https://www.bing.com/search?q=Politica+idoso&cvid=4448aac9907d4b4db69eb9441862db1b&gs_lcrp=EgRlZGdlKgYIABBFGDkyBggAEEUYOTIGCAEQABhA0gEIODk5MWowajSoAgCwAgA&FORM=ANAB01&PC=WSEDSE" }
         ]
+      };
+
+      const categoryNames = {
+        leis: 'Leis',
+        decretos: 'Decretos',
+        portarias: 'Portarias',
+        resolucoes: 'Resoluções',
+        normas: 'Normas'
       };
 
       let activeTab = "leis";
@@ -174,28 +610,77 @@
       const documentGrid = document.getElementById('document-grid');
       const emptyMessage = document.getElementById('empty-message');
       const currentYearSpan = document.getElementById('current-year');
+      const mobileCategoryBtn = document.getElementById('mobile-category-btn');
+      const mobileDrawer = document.getElementById('mobile-drawer');
+      const mobileOverlay = document.getElementById('mobile-overlay');
+      const currentCategoryLabel = document.getElementById('current-category-label');
 
       // --- Estilos dos Botões ---
       const styles = {
-        primary: 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:opacity-90 active:scale-95 focus:ring-blue-500',
-        secondary: 'bg-zinc-700 text-white hover:bg-zinc-600 active:scale-95 focus:ring-zinc-500'
+        primary: 'glass border-blue-500/50 text-white shadow-lg shadow-blue-500/20 scale-105',
+        secondary: 'bg-zinc-800/40 border-zinc-700/50 text-zinc-300 hover:bg-zinc-800/60 hover:text-white'
+      };
+
+      const mobileStyles = {
+        primary: 'glass border-blue-500/50 text-white shadow-lg shadow-blue-500/20',
+        secondary: 'bg-zinc-800/40 border border-zinc-700/50 text-zinc-300'
       };
 
       /**
-       * Cria o HTML para um DocumentCard.
+       * Formata a data para exibição
        */
-      function createDocumentCard({ title, date, link }) {
+      function formatDate(dateString) {
+        if (!dateString) return 'Data não disponível';
+        const date = new Date(dateString + 'T00:00:00');
+        return date.toLocaleDateString('pt-BR', { 
+          day: '2-digit', 
+          month: 'long', 
+          year: 'numeric' 
+        });
+      }
+
+      /**
+       * Cria o HTML para um DocumentCard com animações e efeitos modernos.
+       */
+      function createDocumentCard({ title, date, link }, index) {
         return `
           <a
             href="${link}"
             target="_blank"
             rel="noopener noreferrer"
-            class="group relative block overflow-hidden rounded-xl bg-zinc-800/50 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-zinc-800 hover:scale-[1.03] hover:shadow-2xl"
+            class="stagger-item group relative block overflow-hidden rounded-xl md:rounded-2xl glass border border-zinc-700/50 p-5 md:p-8 shadow-xl transition-all duration-500 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-1 md:hover:-translate-y-2 active:scale-98 card-glow shine"
           >
+            <!-- Background gradient on hover/active -->
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-active:opacity-100"></div>
+            
             <div class="relative z-10">
-              <svg class="mb-4 h-8 w-8 text-blue-400"><use href="#icon-file-text"></use></svg>
-              <h3 class="mb-2 text-lg font-semibold text-white">${title}</h3>
-              <p class="text-sm text-zinc-400">Publicado em: ${date}</p>
+              <!-- Icon with animation -->
+              <div class="mb-4 md:mb-6 inline-flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-lg md:rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6 group-active:scale-105 group-active:rotate-3">
+                <svg class="h-6 w-6 md:h-7 md:w-7 text-blue-400 transition-colors duration-300 group-hover:text-blue-300 group-active:text-blue-300">
+                  <use href="#icon-file-text"></use>
+                </svg>
+              </div>
+              
+              <!-- Title -->
+              <h3 class="mb-3 md:mb-4 text-base md:text-xl font-bold leading-tight text-white transition-colors duration-300 group-hover:text-blue-300 group-active:text-blue-300">
+                ${title}
+              </h3>
+              
+              <!-- Date -->
+              <div class="flex items-center gap-2">
+                <div class="h-1 w-1 rounded-full bg-blue-400"></div>
+                <p class="text-xs md:text-sm font-medium text-zinc-400 transition-colors duration-300 group-hover:text-zinc-300 group-active:text-zinc-300">
+                  ${formatDate(date)}
+                </p>
+              </div>
+              
+              <!-- Arrow indicator - only show on desktop -->
+              <div class="hidden md:flex mt-6 items-center gap-2 text-sm font-semibold text-blue-400 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-2">
+                <span>Acessar documento</span>
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+              </div>
             </div>
           </a>
         `;
@@ -211,54 +696,123 @@
         // Limpa o grid
         documentGrid.innerHTML = '';
 
+        // Scroll to top on mobile
+        if (window.innerWidth < 768) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         // Renderiza items
         if (items.length > 0) {
           emptyMessage.classList.add('hidden');
-          items.forEach(doc => {
-            documentGrid.innerHTML += createDocumentCard(doc);
+          items.forEach((doc, index) => {
+            documentGrid.innerHTML += createDocumentCard(doc, index);
           });
         } else {
           emptyMessage.classList.remove('hidden');
         }
 
+        // Atualiza label da categoria no mobile
+        currentCategoryLabel.textContent = categoryNames[tabKey];
+
         // Atualiza estilos dos botões
         updateButtonStyles();
+        updateMobileButtonStyles();
       }
 
       /**
-       * Atualiza os estilos dos botões de aba.
+       * Atualiza os estilos dos botões de aba (desktop).
        */
       function updateButtonStyles() {
         const buttons = tabsContainer.querySelectorAll('.tab-button');
         buttons.forEach(button => {
           const tab = button.dataset.tab;
-          // Remove tokens das classes de estilo anteriores, se existirem
+          
+          // Remove todas as classes de estilo
           button.classList.remove(...styles.primary.split(' '), ...styles.secondary.split(' '));
-
-          // Adiciona estilo correto
+          
+          // Remove/adiciona classe 'active' para o indicador
           if (tab === activeTab) {
-            button.classList.add(...styles.primary.split(' '));
+            button.classList.add(...styles.primary.split(' '), 'active');
           } else {
             button.classList.add(...styles.secondary.split(' '));
+            button.classList.remove('active');
           }
         });
+      }
+
+      /**
+       * Atualiza os estilos dos botões de aba (mobile).
+       */
+      function updateMobileButtonStyles() {
+        const buttons = document.querySelectorAll('.mobile-tab-button');
+        buttons.forEach(button => {
+          const tab = button.dataset.tabMobile;
+          
+          // Remove todas as classes de estilo
+          button.classList.remove(...mobileStyles.primary.split(' '), ...mobileStyles.secondary.split(' '));
+          
+          // Adiciona classe correta
+          if (tab === activeTab) {
+            button.classList.add(...mobileStyles.primary.split(' '));
+          } else {
+            button.classList.add(...mobileStyles.secondary.split(' '));
+          }
+        });
+      }
+
+      /**
+       * Abre o drawer mobile
+       */
+      function openMobileDrawer() {
+        mobileDrawer.classList.add('open');
+        mobileOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      /**
+       * Fecha o drawer mobile
+       */
+      function closeMobileDrawer() {
+        mobileDrawer.classList.remove('open');
+        mobileOverlay.classList.remove('open');
+        document.body.style.overflow = '';
       }
 
       /**
        * Inicializa os botões e o conteúdo.
        */
       function initialize() {
-        // Preenche os nomes dos botões (mantive texto legível no HTML)
+        // Desktop: Botões de categoria
         const buttons = tabsContainer.querySelectorAll('.tab-button');
         buttons.forEach(button => {
-          if (!button.textContent.trim()) {
-            button.textContent = button.dataset.tab;
-          }
-          // Adiciona evento de clique
           button.addEventListener('click', () => {
             renderContent(button.dataset.tab);
           });
         });
+
+        // Mobile: Botão para abrir drawer
+        mobileCategoryBtn.addEventListener('click', openMobileDrawer);
+
+        // Mobile: Botões do drawer
+        const mobileButtons = document.querySelectorAll('.mobile-tab-button');
+        mobileButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            renderContent(button.dataset.tabMobile);
+            closeMobileDrawer();
+          });
+        });
+
+        // Mobile: Fechar drawer ao clicar no overlay
+        mobileOverlay.addEventListener('click', closeMobileDrawer);
+
+        // Mobile: Touch gestures para o drawer usando Hammer.js
+        if (typeof Hammer !== 'undefined' && window.innerWidth < 768) {
+          const drawerElement = mobileDrawer;
+          const hammer = new Hammer(drawerElement);
+          
+          hammer.get('swipe').set({ direction: Hammer.DIRECTION_DOWN });
+          hammer.on('swipedown', closeMobileDrawer);
+        }
 
         // Define o ano no rodapé
         currentYearSpan.textContent = new Date().getFullYear();
@@ -268,6 +822,16 @@
       }
 
       initialize();
+      
+      // Atualiza estilos ao redimensionar (caso usuário mude de orientação)
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          updateButtonStyles();
+          updateMobileButtonStyles();
+        }, 250);
+      });
     });
   </script>
 </body>
